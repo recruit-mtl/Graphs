@@ -15,8 +15,6 @@ class GraphViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,29 +31,21 @@ class GraphViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! GraphTableViewCell
         
-        cell.contentView.subviews.forEach({ $0.removeFromSuperview() })
-        
-        let array = [0, 1, 2, 5, -10, 3, 20, 5]
+        let array = [20, 1, 2, 5, -10, 3, 20, 5]
         
         let range = GraphRange(min: -15, max: 25)
         
         let graph = array.barGraph(range)
         
-        
-        if indexPath.row == 0 {
-            graph.writeUnits({ (us) -> [GraphUnit<String, Int>] in
-                let new = us.map({ _ -> GraphUnit<String, Int> in return GraphUnit<String, Int>(key: nil, value: 10) })
-                return new
-            })
-        }
-        
-        let view = graph.view(cell.contentView.bounds)
-        view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-        cell.contentView.addSubview(view)
+        cell.setGraph(graph)
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 160.0
     }
 
 }

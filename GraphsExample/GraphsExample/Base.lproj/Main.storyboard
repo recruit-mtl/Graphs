@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Graphs-->
@@ -41,18 +42,34 @@
         <scene sceneID="T5s-ac-nYY">
             <objects>
                 <tableViewController id="dXs-lg-RGj" customClass="GraphViewController" customModule="GraphsExample" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="200" sectionHeaderHeight="28" sectionFooterHeight="28" id="z1J-wB-ljE">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="324" sectionHeaderHeight="28" sectionFooterHeight="28" id="z1J-wB-ljE">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="7PZ-0w-ZGi">
-                                <rect key="frame" x="0.0" y="92" width="600" height="200"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="324" id="7PZ-0w-ZGi" customClass="GraphTableViewCell" customModule="GraphsExample" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="324"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7PZ-0w-ZGi" id="aRH-Ug-Nrw">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="7PZ-0w-ZGi" id="aRH-Ug-Nrw">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="323.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BeY-6y-nBn">
+                                            <rect key="frame" x="16" y="8" width="568" height="307.5"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="BeY-6y-nBn" firstAttribute="bottom" secondItem="aRH-Ug-Nrw" secondAttribute="bottomMargin" id="5Nk-tc-y9d"/>
+                                        <constraint firstItem="BeY-6y-nBn" firstAttribute="top" secondItem="aRH-Ug-Nrw" secondAttribute="topMargin" id="Mzv-zh-Tzx"/>
+                                        <constraint firstItem="BeY-6y-nBn" firstAttribute="trailing" secondItem="aRH-Ug-Nrw" secondAttribute="trailingMargin" constant="-8" id="PUn-sv-bMc"/>
+                                        <constraint firstItem="BeY-6y-nBn" firstAttribute="leading" secondItem="aRH-Ug-Nrw" secondAttribute="leadingMargin" constant="8" id="f0Z-5k-EGE"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="graphAreaView" destination="BeY-6y-nBn" id="C8d-AL-Kwe"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

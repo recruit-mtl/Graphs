@@ -8,59 +8,66 @@
 
 import UIKit
 
-struct LineGraphViewConfig {
+public struct LineGraphViewConfig {
     
-    var lineColor: UIColor
-    var textColor: UIColor
-    var dotEnable: Bool
-    var dotDiameter: CGFloat
-    var sectionWidth: CGFloat?
+    public var lineColor: UIColor
+    public var lineWidth: CGFloat
+    public var textColor: UIColor
+    public var textFont: UIFont
+    public var dotEnable: Bool
+    public var dotDiameter: CGFloat
+    public var sectionWidth: CGFloat?
     
-    init(
+    public init(
         lineColor: UIColor? = nil,
+        lineWidth: CGFloat? = nil,
         textColor: UIColor? = nil,
+        textFont: UIFont? = nil,
         dotEnable: Bool? = nil,
         dotDiameter: CGFloat? = nil,
         sectionWidth: CGFloat? = nil
         ) {
         self.lineColor = lineColor ?? DefaultColorType.Line.color()
+        self.lineWidth = lineWidth ?? 3.0
         self.textColor = textColor ?? DefaultColorType.LineText.color()
+        self.textFont = textFont ?? UIFont.systemFontOfSize(10.0)
         self.dotEnable = true
         self.dotDiameter = dotDiameter ?? 10.0
         self.sectionWidth = sectionWidth
     }
 }
 
-public class LineGraphView<T: Hashable, U: NumericType>: UIView {
-    
-    public typealias LineGraphTextDisplayHandler = (GraphUnit<T, U>) -> String?
-    
-    public var textDisplayHandler: ((GraphUnit<T, U>) -> String?)?
+internal class LineGraphView<T: Hashable, U: NumericType>: UIView {
     
     private var graph: LineGraph<T, U>?
     private var config: LineGraphViewConfig
     
-    public var lineColor: UIColor? = nil {
+    var lineColor: UIColor? = nil {
         didSet {
             self.config.lineColor = lineColor ?? DefaultColorType.Line.color()
             self.setNeedsDisplay()
         }
     }
     
-    
-    public init(frame: CGRect, graph: LineGraph<T, U>?, textDisplayHandler: LineGraphTextDisplayHandler? = nil) {
+    init(frame: CGRect, graph: LineGraph<T, U>?) {
         
         self.config = LineGraphViewConfig()
-        self.textDisplayHandler = textDisplayHandler
         super.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
         self.graph = graph
     }
     
-    public override func drawRect(rect: CGRect) {
+    func setLineGraphViewConfig(config: LineGraphViewConfig?) {
+        self.config = config ?? LineGraphViewConfig()
+        self.setNeedsDisplay()
+    }
+    
+    override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         
         guard let lineGraph = self.graph else { return }
+        
+        let total = lineGraph.units.map{ $0.value }.reduce(U(0)){ $0 + $1 }
         
         let ps = self.points(lineGraph, sectionWidth: self.config.sectionWidth)
         
@@ -70,7 +77,7 @@ public class LineGraphView<T: Hashable, U: NumericType>: UIView {
         
         let context = UIGraphicsGetCurrentContext()
         CGContextSetStrokeColorWithColor(context, config.lineColor.CGColor ?? UIColor.blackColor().CGColor)
-        CGContextSetLineWidth(context, 3.0)
+        CGContextSetLineWidth(context, self.config.lineWidth)
         
         ps.forEach({point in
             if point == ps.first {
@@ -83,6 +90,7 @@ public class LineGraphView<T: Hashable, U: NumericType>: UIView {
             }
         })
         
+        CGContextSetLineWidth(context, 0.0)
         CGContextSetFillColorWithColor(context, config.lineColor.CGColor ?? UIColor.blackColor().CGColor)
         
         if self.config.dotEnable {
@@ -95,7 +103,7 @@ public class LineGraphView<T: Hashable, U: NumericType>: UIView {
         
         zip(lineGraph.units, ps).forEach { (u, p) in
             
-            guard let str = self.textDisplayHandler?(u) else {
+            guard let str = self.graph?.graphTextDisplay()(unit: u, totalValue: total) else {
                 return
             }
             

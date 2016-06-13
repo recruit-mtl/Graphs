@@ -10,64 +10,104 @@ import UIKit
 
 public class GraphView<T: Hashable, U: NumericType>: UIView {
     
-    private var scrollView: UIScrollView!
-    
-    public var graph: Graph<T, U> {
+    public var graph: Graph<T, U>? {
         didSet {
             self.reloadData()
         }
     }
     
-    public init(frame: CGRect, graph: Graph<T, U>) {
+    private var barGraphConfig: BarGraphViewConfig?
+    private var lineGraphConfig: LineGraphViewConfig?
+    private var pieGraphConfig: PieGraphViewConfig?
+    
+    public init(frame: CGRect, graph: Graph<T, U>? = nil) {
         self.graph = graph
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.clearColor()
-        
-        self.scrollView = UIScrollView(frame: self.bounds)
-        self.addSubview(self.scrollView)
-        
         self.reloadData()
     }
     
-    public func reloadData() {
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.backgroundColor = UIColor.clearColor()
+        self.reloadData()
+    }
+    
+    func reloadData() {
         
-        self.scrollView.subviews.forEach { $0.removeFromSuperview() }
+        self.subviews.forEach { $0.removeFromSuperview() }
         
-        switch self.graph.type {
+        guard let graph = self.graph else { return }
+        
+        switch graph.kind {
         case .Bar(let g):
             
-            if let view = g.view(self.scrollView.frame) {
-                self.scrollView.addSubview(view)
-                self.scrollView.contentSize = self.scrollView.frame.size
+            if let view = g.view(self.bounds) {
+                if let c = barGraphConfig {
+                    view.setBarGraphViewConfig(c)
+                }
+                self.addSubview(view)
             }
             
         case .Line(let g):
             
-            if let view = g.view(self.scrollView.frame) {
-                self.scrollView.addSubview(view)
+            if let view = g.view(self.bounds) {
+                if let c = lineGraphConfig {
+                    view.setLineGraphViewConfig(c)
+                }
+                self.addSubview(view)
             }
             
         case .Pie(let g):
             
-            if let view = g.view(self.scrollView.frame) {
-                self.scrollView.addSubview(view)
+            if let view = g.view(self.bounds) {
+                if let c = pieGraphConfig {
+                    view.setPieGraphViewConfig(c)
+                }
+                self.addSubview(view)
             }
         }
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        self.scrollView.subviews.forEach{
-            $0.frame = self.scrollView.insetBounds()
+        self.subviews.forEach{
+            $0.frame = self.bounds
         }
     }
+}
+
+extension GraphView {
     
-    public override func drawRect(rect: CGRect) {
-        
-        super.drawRect(rect)
-        
-        self.reloadData()
+    public func barGraphConfiguration(configuration: () -> BarGraphViewConfig) -> Self {
+        self.barGraphConfig = configuration()
+        self.subviews.forEach { (v) in
+            if let barGraphView = v as? BarGraphView<T, U> {
+                barGraphView.setBarGraphViewConfig(barGraphConfig)
+            }
+        }
+        return self
+    }
+    
+    public func lineGraphConfiguration(configuration: () -> LineGraphViewConfig) -> Self {
+        self.lineGraphConfig = configuration()
+        self.subviews.forEach { (v) in
+            if let lineGraphView = v as? LineGraphView<T, U> {
+                lineGraphView.setLineGraphViewConfig(lineGraphConfig)
+            }
+        }
+        return self
+    }
+    
+    public func pieGraphConfiguration(configuration: () -> PieGraphViewConfig) -> Self {
+        self.pieGraphConfig = configuration()
+        self.subviews.forEach { (v) in
+            if let pieGraphView = v as? PieGraphView<T, U> {
+                pieGraphView.setPieGraphViewConfig(pieGraphConfig)
+            }
+        }
+        return self
     }
 }
 
@@ -81,46 +121,6 @@ extension UIScrollView {
             width: self.bounds.size.width - self.contentInset.left - self.contentInset.right,
             height: self.bounds.size.height - self.contentInset.top - self.contentInset.bottom
         )
-    }
-}
-
-
-public class MultiBarGraphView<T: Hashable, U: NumericType>: UIView {
-    
-    private var scrollView: UIScrollView!
-    
-    private var graph: MultiBarGraph<T, U>?
-    private var config: MultiBarGraphViewConfig<U>
-    
-    public init(frame: CGRect, graph: MultiBarGraph<T, U>?, viewConfig: MultiBarGraphViewConfig<U>? = nil) {
-        
-        self.config = viewConfig ?? MultiBarGraphViewConfig<U>()
-        super.init(frame: frame)
-        self.graph = graph
-        self.scrollView = UIScrollView(
-            frame: CGRect(x: 20.0, y: 0.0, width: self.bounds.width - 20.0, height: self.bounds.height - 20.0)
-        )
-        self.addSubview(self.scrollView)
-    }
-}
-
-
-
-
-public struct MultiBarGraphViewConfig<T: NumericType> {
-    
-    public let barColors: [UIColor]
-    public let barWidthScale: CGFloat
-    public var sectionWidth: CGFloat?
-    
-    public init(
-        barColors: [UIColor]? = nil,
-        barWidthScale: CGFloat? = nil,
-        sectionWidth: CGFloat? = nil
-        ) {
-        self.barColors = barColors ?? [DefaultColorType.Bar.color()]
-        self.barWidthScale = barWidthScale ?? 0.8
-        self.sectionWidth = sectionWidth
     }
 }
 

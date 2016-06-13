@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A33B284C0424ED3228CC8490 /* Pods_GraphsExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7372B503409584A979630DB3 /* Pods_GraphsExample.framework */; };
+		974E409B1F3C36BC5D841350 /* Pods_GraphsExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F49A1ECEBF7A92816B652F8 /* Pods_GraphsExample.framework */; };
 		E92069AC1CFC3D200025DBC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92069AB1CFC3D200025DBC8 /* AppDelegate.swift */; };
 		E92069B11CFC3D200025DBC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92069AF1CFC3D200025DBC8 /* Main.storyboard */; };
 		E92069B31CFC3D200025DBC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E92069B21CFC3D200025DBC8 /* Assets.xcassets */; };
 		E92069B61CFC3D200025DBC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92069B41CFC3D200025DBC8 /* LaunchScreen.storyboard */; };
 		E92069C11CFC3D200025DBC8 /* GraphsExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92069C01CFC3D200025DBC8 /* GraphsExampleTests.swift */; };
+		E9B004E01D0A8FC80099557B /* GraphTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B004DF1D0A8FC80099557B /* GraphTableViewCell.swift */; };
 		E9E983121D07B1F600692217 /* RootTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E983111D07B1F600692217 /* RootTableViewController.swift */; };
 		E9E983181D07EBDD00692217 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E983171D07EBDD00692217 /* GraphViewController.swift */; };
 /* End PBXBuildFile section */
@@ -28,9 +29,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2D62D76D956FF9D31B972130 /* Pods-GraphsExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GraphsExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GraphsExample/Pods-GraphsExample.debug.xcconfig"; sourceTree = "<group>"; };
-		7372B503409584A979630DB3 /* Pods_GraphsExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GraphsExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B8ABD72E74B12F91355EC490 /* Pods-GraphsExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GraphsExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-GraphsExample/Pods-GraphsExample.release.xcconfig"; sourceTree = "<group>"; };
+		4227E7448AC62671208299D7 /* Pods-GraphsExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GraphsExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GraphsExample/Pods-GraphsExample.debug.xcconfig"; sourceTree = "<group>"; };
+		648833EF53F9A4F7C44598BB /* Pods-GraphsExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GraphsExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-GraphsExample/Pods-GraphsExample.release.xcconfig"; sourceTree = "<group>"; };
+		8F49A1ECEBF7A92816B652F8 /* Pods_GraphsExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GraphsExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E92069A81CFC3D200025DBC8 /* GraphsExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GraphsExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E92069AB1CFC3D200025DBC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E92069B01CFC3D200025DBC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -40,6 +41,7 @@
 		E92069BC1CFC3D200025DBC8 /* GraphsExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GraphsExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E92069C01CFC3D200025DBC8 /* GraphsExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphsExampleTests.swift; sourceTree = "<group>"; };
 		E92069C21CFC3D200025DBC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9B004DF1D0A8FC80099557B /* GraphTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphTableViewCell.swift; sourceTree = "<group>"; };
 		E9E983111D07B1F600692217 /* RootTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTableViewController.swift; sourceTree = "<group>"; };
 		E9E983171D07EBDD00692217 /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -49,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A33B284C0424ED3228CC8490 /* Pods_GraphsExample.framework in Frameworks */,
+				974E409B1F3C36BC5D841350 /* Pods_GraphsExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,21 +65,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		716A5CD9CC5DADC0E0EFDF19 /* Pods */ = {
+		29D120C267599379DAEF37A8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2D62D76D956FF9D31B972130 /* Pods-GraphsExample.debug.xcconfig */,
-				B8ABD72E74B12F91355EC490 /* Pods-GraphsExample.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		DB5695277C2EC0BAD7B667B3 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7372B503409584A979630DB3 /* Pods_GraphsExample.framework */,
+				8F49A1ECEBF7A92816B652F8 /* Pods_GraphsExample.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8AFFCF1B50DBACE8319B88C4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4227E7448AC62671208299D7 /* Pods-GraphsExample.debug.xcconfig */,
+				648833EF53F9A4F7C44598BB /* Pods-GraphsExample.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		E920699F1CFC3D200025DBC8 = {
@@ -86,8 +88,8 @@
 				E92069AA1CFC3D200025DBC8 /* GraphsExample */,
 				E92069BF1CFC3D200025DBC8 /* GraphsExampleTests */,
 				E92069A91CFC3D200025DBC8 /* Products */,
-				716A5CD9CC5DADC0E0EFDF19 /* Pods */,
-				DB5695277C2EC0BAD7B667B3 /* Frameworks */,
+				8AFFCF1B50DBACE8319B88C4 /* Pods */,
+				29D120C267599379DAEF37A8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +108,7 @@
 				E92069AB1CFC3D200025DBC8 /* AppDelegate.swift */,
 				E9E983111D07B1F600692217 /* RootTableViewController.swift */,
 				E9E983171D07EBDD00692217 /* GraphViewController.swift */,
+				E9B004DF1D0A8FC80099557B /* GraphTableViewCell.swift */,
 				E92069AF1CFC3D200025DBC8 /* Main.storyboard */,
 				E92069B21CFC3D200025DBC8 /* Assets.xcassets */,
 				E92069B41CFC3D200025DBC8 /* LaunchScreen.storyboard */,
@@ -136,7 +139,7 @@
 				E92069A61CFC3D200025DBC8 /* Resources */,
 				757FB9C9151E3B788984CFB0 /* [CP] Embed Pods Frameworks */,
 				17985833460BB9F83DF0E125 /* [CP] Copy Pods Resources */,
-				31BB0C42C5F1756706FABD2F /* Embed Pods Frameworks */,
+				406E61D919A0A9E11D6F2F3E /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -254,7 +257,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		31BB0C42C5F1756706FABD2F /* Embed Pods Frameworks */ = {
+		406E61D919A0A9E11D6F2F3E /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -291,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9B004E01D0A8FC80099557B /* GraphTableViewCell.swift in Sources */,
 				E9E983181D07EBDD00692217 /* GraphViewController.swift in Sources */,
 				E92069AC1CFC3D200025DBC8 /* AppDelegate.swift in Sources */,
 				E9E983121D07B1F600692217 /* RootTableViewController.swift in Sources */,
@@ -422,11 +426,11 @@
 		};
 		E92069C61CFC3D210025DBC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2D62D76D956FF9D31B972130 /* Pods-GraphsExample.debug.xcconfig */;
+			baseConfigurationReference = 4227E7448AC62671208299D7 /* Pods-GraphsExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GraphsExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.co.recruit.mtl.GraphsExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -435,11 +439,11 @@
 		};
 		E92069C71CFC3D210025DBC8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B8ABD72E74B12F91355EC490 /* Pods-GraphsExample.release.xcconfig */;
+			baseConfigurationReference = 648833EF53F9A4F7C44598BB /* Pods-GraphsExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GraphsExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.co.recruit.mtl.GraphsExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

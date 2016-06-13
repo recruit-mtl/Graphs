@@ -14,6 +14,7 @@
 		E9428EEF1D0168F400DBFBD9 /* LineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9428EEE1D0168F400DBFBD9 /* LineGraphView.swift */; };
 		E955F4C91CFE73B6006E9D25 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E955F4C81CFE73B6006E9D25 /* GraphView.swift */; };
 		E96B3C5C1D011DC8006D5FD9 /* BarGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96B3C5B1D011DC8006D5FD9 /* BarGraphView.swift */; };
+		E97752211D095676008AB30A /* MultiBarGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97752201D095676008AB30A /* MultiBarGraphView.swift */; };
 		E984B7B21CFD282700E2C834 /* GraphsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E984B7B11CFD282700E2C834 /* GraphsExtensions.swift */; };
 		E984B7B41CFD303000E2C834 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E984B7B31CFD303000E2C834 /* Nimble.framework */; };
 		E984B7B61CFD303C00E2C834 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E984B7B51CFD303C00E2C834 /* Quick.framework */; };
@@ -41,6 +42,7 @@
 		E9428EEE1D0168F400DBFBD9 /* LineGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineGraphView.swift; sourceTree = "<group>"; };
 		E955F4C81CFE73B6006E9D25 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		E96B3C5B1D011DC8006D5FD9 /* BarGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarGraphView.swift; sourceTree = "<group>"; };
+		E97752201D095676008AB30A /* MultiBarGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiBarGraphView.swift; sourceTree = "<group>"; };
 		E984B7B11CFD282700E2C834 /* GraphsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphsExtensions.swift; sourceTree = "<group>"; };
 		E984B7B31CFD303000E2C834 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		E984B7B51CFD303C00E2C834 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
@@ -90,13 +92,14 @@
 		E92069841CFC20840025DBC8 /* Graphs */ = {
 			isa = PBXGroup;
 			children = (
-				E92069851CFC20840025DBC8 /* Graphs.h */,
 				E92069871CFC20840025DBC8 /* Info.plist */,
+				E92069851CFC20840025DBC8 /* Graphs.h */,
 				E920699C1CFC20D00025DBC8 /* Graph.swift */,
 				E955F4C81CFE73B6006E9D25 /* GraphView.swift */,
 				E96B3C5B1D011DC8006D5FD9 /* BarGraphView.swift */,
 				E9428EEE1D0168F400DBFBD9 /* LineGraphView.swift */,
 				E9AF3B6E1D068A0E00F0B18B /* PieGraphView.swift */,
+				E97752201D095676008AB30A /* MultiBarGraphView.swift */,
 				E984B7B11CFD282700E2C834 /* GraphsExtensions.swift */,
 			);
 			path = Graphs;
@@ -234,6 +237,7 @@
 				E955F4C91CFE73B6006E9D25 /* GraphView.swift in Sources */,
 				E9AF3B6F1D068A0E00F0B18B /* PieGraphView.swift in Sources */,
 				E96B3C5C1D011DC8006D5FD9 /* BarGraphView.swift in Sources */,
+				E97752211D095676008AB30A /* MultiBarGraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

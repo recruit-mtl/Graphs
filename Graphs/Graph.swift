@@ -8,20 +8,136 @@
 
 import UIKit
 
+public enum GraphType {
+    case
+    Bar,
+    Line,
+    Pie
+}
+
 public class Graph<T: Hashable, U: NumericType> {
     
-    let type: GraphType<T, U>
+    public typealias GraphTextDisplayHandler = (unit: GraphUnit<T, U>, totalValue: U) -> String?
+    
+    let kind: GraphKind<T, U>
+    
     
     init(barGraph: BarGraph<T, U>) {
-        self.type = GraphType<T, U>.Bar(barGraph)
+        self.kind = GraphKind<T, U>.Bar(barGraph)
     }
     
     init(lineGraph: LineGraph<T, U>) {
-        self.type = GraphType<T, U>.Line(lineGraph)
+        self.kind = GraphKind<T, U>.Line(lineGraph)
     }
     
     init(pieGraph: PieGraph<T, U>) {
-        self.type = GraphType<T, U>.Pie(pieGraph)
+        self.kind = GraphKind<T, U>.Pie(pieGraph)
+    }
+}
+
+public extension Graph {
+    
+    public convenience init(type: GraphType, array: [U], min minOrNil: U? = nil, max maxOrNil: U? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) {
+        
+        let range = {() -> GraphRange<U>? in
+            if let min = minOrNil, let max = maxOrNil {
+                return GraphRange(min: min, max: max)
+            }
+            return nil
+        }
+        
+        self.init(type: type, array: array, range: range(), textDisplayHandler: textDisplayHandler)
+    }
+    
+    public convenience init(type: GraphType, array: [U], range rangeOrNil: GraphRange<U>? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) {
+        
+        let r = {() -> GraphRange<U> in
+            if let r = rangeOrNil { return r }
+            let sorted = array.sort{ $0 < $1 }
+            return GraphRange<U>(
+                min: sorted.first ?? U(0),
+                max: sorted.last ?? U(0)
+            )
+        }
+        
+        switch type {
+        case .Bar:
+            
+            self.init(barGraph:BarGraph<T, U>(
+                units: array.map{ GraphUnit<T, U>(key: nil, value: $0) },
+                range: r(),
+                textDisplayHandler: textDisplayHandler
+            ))
+            
+        case .Line:
+            
+            self.init(lineGraph: LineGraph<T, U>(
+                units: array.map{ GraphUnit<T, U>(key: nil, value: $0) },
+                range: r(),
+                textDisplayHandler: textDisplayHandler
+            ))
+            
+        case .Pie:
+            
+            self.init(pieGraph: PieGraph<T, U>(
+                units: array.map{ GraphUnit<T, U>(key: nil, value: $0) },
+                textDisplayHandler: textDisplayHandler
+            ))
+        }
+    }
+}
+
+public extension Graph {
+    
+    public convenience init(type: GraphType, dictionary: [T: U], min minOrNil: U? = nil, max maxOrNil: U? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) {
+        
+        let range = {() -> GraphRange<U>? in
+            if let min = minOrNil, let max = maxOrNil {
+                return GraphRange(min: min, max: max)
+            }
+            return nil
+        }
+        
+        self.init(type: type, dictionary: dictionary, range: range(), textDisplayHandler: textDisplayHandler)
+    }
+    
+    public convenience init(type: GraphType, dictionary: [T: U], range rangeOrNil: GraphRange<U>? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) {
+        
+        let sorted = dictionary.sort{ $0.1 < $1.1 }
+        
+        let r = {() -> GraphRange<U> in
+            if let r = rangeOrNil { return r }
+
+            return GraphRange<U>(
+                min: sorted.first?.1 ?? U(0),
+                max: sorted.last?.1 ?? U(0)
+            )
+        }
+        
+        switch type {
+        case .Bar:
+            
+            self.init(barGraph:BarGraph<T, U>(
+                units: sorted.map{ GraphUnit<T, U>(key: $0.0, value: $0.1) },
+                range: r(),
+                textDisplayHandler: textDisplayHandler
+            ))
+            
+        case .Line:
+            
+            self.init(lineGraph: LineGraph<T, U>(
+                units: sorted.map{ GraphUnit<T, U>(key: $0.0, value: $0.1) },
+                range: r(),
+                textDisplayHandler: textDisplayHandler
+            ))
+            
+        case .Pie:
+            
+            self.init(pieGraph: PieGraph<T, U>(
+                units: sorted.map{ GraphUnit<T, U>(key: $0.0, value: $0.1) },
+                textDisplayHandler: textDisplayHandler
+            ))
+        }
     }
 }
 
@@ -32,24 +148,22 @@ public extension Graph {
     }
 }
 
-
-
-public enum GraphType<T: Hashable, U: NumericType> {
+enum GraphKind<T: Hashable, U: NumericType> {
     case
     Bar(BarGraph<T, U>),
     Line(LineGraph<T, U>),
     Pie(PieGraph<T, U>)
     
-    internal static func barGraph(units: [GraphUnit<T, U>], range: GraphRange<U>) -> GraphType<T, U> {
-        return GraphType<T, U>.Bar(BarGraph(units: units, range: range))
+    internal static func barGraph(units: [GraphUnit<T, U>], range: GraphRange<U>) -> GraphKind<T, U> {
+        return GraphKind<T, U>.Bar(BarGraph(units: units, range: range))
     }
     
-    internal static func lineGraph(units: [GraphUnit<T, U>], range: GraphRange<U>) -> GraphType<T, U> {
-        return GraphType<T, U>.Line(LineGraph(units: units, range: range))
+    internal static func lineGraph(units: [GraphUnit<T, U>], range: GraphRange<U>) -> GraphKind<T, U> {
+        return GraphKind<T, U>.Line(LineGraph(units: units, range: range))
     }
     
-    internal static func pieGraph(units: [GraphUnit<T, U>]) -> GraphType<T, U> {
-        return GraphType<T, U>.Pie(PieGraph(units: units))
+    internal static func pieGraph(units: [GraphUnit<T, U>]) -> GraphKind<T, U> {
+        return GraphKind<T, U>.Pie(PieGraph(units: units))
     }
 }
 
@@ -57,84 +171,130 @@ public protocol GraphBase {
     
     associatedtype UnitsType
     associatedtype RangeType
+    associatedtype GraphTextDisplayHandler
     
     var units: UnitsType { get }
-//    var range: RangeType { get }
-    
+    var textDisplayHandler: GraphTextDisplayHandler? { get }
 }
 
-public struct BarGraph<T: Hashable, U: NumericType>: GraphBase {
+
+
+internal struct BarGraph<T: Hashable, U: NumericType>: GraphBase {
     
-    public typealias GraphView = BarGraphView<T, U>
-    public typealias UnitsType = [GraphUnit<T, U>]
-    public typealias RangeType = GraphRange<U>
+    typealias GraphView = BarGraphView<T, U>
+    typealias UnitsType = [GraphUnit<T, U>]
+    typealias RangeType = GraphRange<U>
+    typealias GraphTextDisplayHandler = Graph<T, U>.GraphTextDisplayHandler
     
-    public var units: [GraphUnit<T, U>]
-    public var range: GraphRange<U>
-    public var textDisplayHandler: BarGraphView<T, U>.BarGraphTextDisplayHandler?
+    var units: [GraphUnit<T, U>]
+    var range: GraphRange<U>
+    var textDisplayHandler: GraphTextDisplayHandler?
     
-    public init(
+    internal init(
         units: [GraphUnit<T, U>],
         range: GraphRange<U>,
-        textDisplayHandler: BarGraphView<T, U>.BarGraphTextDisplayHandler? = nil
+        textDisplayHandler: GraphTextDisplayHandler? = nil
     ) {
         self.units = units
         self.range = range
         self.textDisplayHandler = textDisplayHandler
     }
 
-    public func view(frame: CGRect) -> GraphView? {
+    func view(frame: CGRect) -> GraphView? {
         return BarGraphView<T, U>(
             frame: frame,
-            graph: self,
-            textDisplayHandler: {() -> BarGraphView<T, U>.BarGraphTextDisplayHandler in
-                if let h = textDisplayHandler {
-                    return h
-                }
-                return { u -> String in String(u.value) }
-            }()
+            graph: self
         )
     }
-}
-
-public struct MultiBarGraph<T: Hashable, U: NumericType>: GraphBase {
     
-    public typealias UnitsType = [[GraphUnit<T, U>]]
-    public typealias RangeType = GraphRange<U>
-    
-    public var units: [[GraphUnit<T, U>]]
-    public var range: GraphRange<U>
-}
-
-public struct LineGraph<T: Hashable, U: NumericType>: GraphBase {
-    
-    public typealias GraphView = LineGraphView<T, U>
-    public typealias UnitsType = [GraphUnit<T, U>]
-    public typealias RangeType = GraphRange<U>
-    
-    
-    public var units: [GraphUnit<T, U>]
-    public var range: GraphRange<U>
-    
-    public func view(frame: CGRect) -> GraphView? {
-        return LineGraphView(frame: frame, graph: self) { u -> String? in
-            return String(u.value)
+    func graphTextDisplay() -> GraphTextDisplayHandler {
+        if let f = textDisplayHandler {
+            return f
         }
+        return { (unit, total) -> String? in String(unit.value) }
     }
 }
 
-public struct PieGraph<T: Hashable, U: NumericType>: GraphBase {
+internal struct MultiBarGraph<T: Hashable, U: NumericType>: GraphBase {
     
-    public typealias GraphView = PieGraphView<T, U>
-    public typealias UnitsType = [GraphUnit<T, U>]
-    public typealias RangeType = GraphRange<U>
+    typealias UnitsType = [[GraphUnit<T, U>]]
+    typealias RangeType = GraphRange<U>
+    typealias GraphTextDisplayHandler = Graph<T, U>.GraphTextDisplayHandler
     
-    public var units: [GraphUnit<T, U>]
+    var units: [[GraphUnit<T, U>]]
+    var range: GraphRange<U>
+    var textDisplayHandler: GraphTextDisplayHandler?
     
-    public func view(frame: CGRect) -> GraphView? {
-        return PieGraphView(frame: frame, graph: self) { (u, totalValue) -> String? in
-            let f = u.value.floatValue() / totalValue.floatValue()
-            return String(u.value) + " : " + String(format: "%.1f", f)
+    func graphTextDisplay() -> GraphTextDisplayHandler {
+        if let f = textDisplayHandler {
+            return f
+        }
+        return { (unit, total) -> String? in String(unit.value) }
+    }
+}
+
+internal struct LineGraph<T: Hashable, U: NumericType>: GraphBase {
+    
+    typealias GraphView = LineGraphView<T, U>
+    typealias UnitsType = [GraphUnit<T, U>]
+    typealias RangeType = GraphRange<U>
+    typealias GraphTextDisplayHandler = Graph<T, U>.GraphTextDisplayHandler
+    
+    var units: [GraphUnit<T, U>]
+    var range: GraphRange<U>
+    var textDisplayHandler: GraphTextDisplayHandler?
+    
+    init(
+        units: [GraphUnit<T, U>],
+        range: GraphRange<U>,
+        textDisplayHandler: GraphTextDisplayHandler? = nil
+    ) {
+        self.units = units
+        self.range = range
+        self.textDisplayHandler = textDisplayHandler
+    }
+    
+    func view(frame: CGRect) -> GraphView? {
+        return LineGraphView(frame: frame, graph: self)
+    }
+    
+    func graphTextDisplay() -> GraphTextDisplayHandler {
+        if let f = textDisplayHandler {
+            return f
+        }
+        return { (unit, total) -> String? in String(unit.value) }
+    }
+}
+
+internal struct PieGraph<T: Hashable, U: NumericType>: GraphBase {
+    
+    typealias GraphView = PieGraphView<T, U>
+    typealias UnitsType = [GraphUnit<T, U>]
+    typealias RangeType = GraphRange<U>
+    typealias GraphTextDisplayHandler = Graph<T, U>.GraphTextDisplayHandler
+    
+    var units: [GraphUnit<T, U>]
+    var textDisplayHandler: GraphTextDisplayHandler?
+    
+    init(
+        units: [GraphUnit<T, U>],
+        textDisplayHandler: GraphTextDisplayHandler? = nil
+    ) {
+        self.units = units
+        self.textDisplayHandler = textDisplayHandler
+    }
+    
+    func view(frame: CGRect) -> GraphView? {
+        return PieGraphView(frame: frame, graph: self)
+    }
+    
+    func graphTextDisplay() -> GraphTextDisplayHandler {
+        if let f = textDisplayHandler {
+            return f
+        }
+        return { (unit, total) -> String? in
+            let f = unit.value.floatValue() / total.floatValue()
+            return String(unit.value) + " : " + String(format: "%.0f%%", f * 100.0)
         }
     }
 }
@@ -155,22 +315,14 @@ public struct GraphRange<T: NumericType> {
     let max: T
     
     public init(min: T, max: T) {
+        
+        assert(min <= max)
+        
         self.min = min
         self.max = max
     }
 }
 
-
-
-public struct BarGraphConfig<T: NumericType> {
-    public let minimumValue: T
-    public let maximumValue: T
-    
-    public init(minimumValue: T, maximumValue: T) {
-        self.minimumValue = minimumValue
-        self.maximumValue = maximumValue
-    }
-}
 
 public struct BarGraphApperance {
     public let barColor: UIColor
@@ -201,26 +353,6 @@ public struct GraphTextAttributes {
         self.font = font ?? UIFont.systemFontOfSize(10.0)
         self.textColor = textColor ?? UIColor.grayColor()
         self.textAlign = textAlign ?? .Center
-    }
-}
-
-public struct MultiBarGraphConfig<T: NumericType> {
-    public let minimumValue: T
-    public let maximumValue: T
-    
-    public init(minimumValue: T, maximumValue: T) {
-        self.minimumValue = minimumValue
-        self.maximumValue = maximumValue
-    }
-}
-
-public struct LineGraphConfig<T: NumericType> {
-    public let minimumValue: T
-    public let maximumValue: T
-    
-    public init(minimumValue: T, maximumValue: T) {
-        self.minimumValue = minimumValue
-        self.maximumValue = maximumValue
     }
 }
 

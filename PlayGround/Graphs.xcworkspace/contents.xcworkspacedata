@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Graphs.playground">
+      location = "group:/Users/kokoro/WorkSpace/iOS/Graphs/PlayGround/Graphs.playground">
    </FileRef>
    <FileRef
       location = "group:../Graphs.xcodeproj">

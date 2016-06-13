@@ -10,59 +10,93 @@ import UIKit
 
 extension SequenceType where Generator.Element: NumericType {
     
-    public func barGraph(range: GraphRange<Generator.Element>? = nil) -> Graph<String, Generator.Element> {
+    public func barGraph(
+        range: GraphRange<Generator.Element>? = nil,
+        textDisplayHandler: Graph<String, Generator.Element>.GraphTextDisplayHandler? = nil
+    ) -> Graph<String, Generator.Element> {
         
-        let a = self.sort{ $0 < $1 }
-        
-        return Graph(barGraph: BarGraph<String, Generator.Element>(
-            units: self.units(),
-            range: range ?? GraphRange<Generator.Element>(
-                min: a.first ?? Generator.Element(),
-                max: a.last ?? Generator.Element()
-            ))
-        )
+        return Graph<String, Generator.Element>(type: .Bar, array: self.map{ $0 }, range: range, textDisplayHandler: textDisplayHandler)
     }
     
     
-    public func lineGraph(range: GraphRange<Generator.Element>? = nil) -> Graph<String, Generator.Element> {
-        let a = self.sort{ $0 < $1 }
+    public func lineGraph(
+        range: GraphRange<Generator.Element>? = nil,
+        textDisplayHandler: Graph<String, Generator.Element>.GraphTextDisplayHandler? = nil
+    ) -> Graph<String, Generator.Element> {
         
-        return Graph(lineGraph: LineGraph<String, Generator.Element>(
-            units: self.units(),
-            range: range ?? GraphRange<Generator.Element>(
-                min: a.first ?? Generator.Element(),
-                max: a.last ?? Generator.Element()
-            ))
-        )
-        
+        return Graph<String, Generator.Element>(type: .Line, array: self.map{ $0 }, range: range, textDisplayHandler: textDisplayHandler)
     }
     
-    public func pieGraph() -> Graph<String, Generator.Element> {
-        return Graph(pieGraph: PieGraph<String, Generator.Element>(units: self.units()))
+    
+    public func pieGraph(
+        textDisplayHandler: Graph<String, Generator.Element>.GraphTextDisplayHandler? = nil
+    ) -> Graph<String, Generator.Element> {
+        
+        return Graph<String, Generator.Element>(type: .Pie, array: self.map{ $0 }, range: nil, textDisplayHandler: textDisplayHandler)
     }
     
-    func units<T: Hashable, U: NumericType>() -> [GraphUnit<T, U>] {
-        return self.map{ GraphUnit<T, U>(key: nil, value: $0 as! U) }
-    }
 }
 
-extension SequenceType where Generator.Element: SequenceType {
+
+extension CollectionType where Self: DictionaryLiteralConvertible, Self.Key: Hashable, Self.Value: NumericType, Generator.Element == (Self.Key, Self.Value) {
     
-//    public func multiBarGraph(config: MultiBarGraphConfig<>? = nil) -> MultiBarGraph<Generator.Element> {
-//        let a = self.sort{ $0 < $1 }
-//        let graph = MultiBarGraph<Generator.Element>(
-//            units: self.units(),
-//            config: config ?? BarGraphConfig<Generator.Element>(
-//                minimumValue: a.first ?? Generator.Element(),
-//                maximumValue: a.last ?? Generator.Element()
-//            )
-//        )
-//        return graph
-//    }
+    
+    typealias aKey = Self.Key
+    typealias aValue = Self.Value
+    
+    public func barGraph(
+        range: GraphRange<aValue>? = nil,
+        sort: (((Self.Key, Self.Value), (Self.Key, Self.Value)) -> Bool)? = nil,
+        textDisplayHandler: Graph<aKey, aValue>.GraphTextDisplayHandler? = nil
+    ) -> Graph<aKey, aValue> {
+        
+        return Graph<aKey, aValue>(type: .Bar, dictionary: dict(), range: range, textDisplayHandler: textDisplayHandler)
+    }
+    
+    public func lineGraph(
+        range: GraphRange<aValue>? = nil,
+        sort: (((Self.Key, Self.Value), (Self.Key, Self.Value)) -> Bool)? = nil,
+        textDisplayHandler: Graph<aKey, aValue>.GraphTextDisplayHandler? = nil
+        ) -> Graph<aKey, aValue> {
+        
+        return Graph<aKey, aValue>(type: .Line, dictionary: dict(), range: range, textDisplayHandler: textDisplayHandler)
+    }
+    
+    public func pieGraph(
+        range: GraphRange<aValue>? = nil,
+        sort: (((Self.Key, Self.Value), (Self.Key, Self.Value)) -> Bool)? = nil,
+        textDisplayHandler: Graph<aKey, aValue>.GraphTextDisplayHandler? = nil
+        ) -> Graph<aKey, aValue> {
+        
+        return Graph<aKey, aValue>(type: .Pie, dictionary: dict(), range: nil, textDisplayHandler: textDisplayHandler)
+    }
+    
+    func dict() -> [aKey: aValue] {
+        var d = [aKey: aValue]()
+        for kv in self {
+            d[kv.0] = kv.1
+        }
+        return d
+    }
+    
+    func touples() -> [(aKey, aValue)] {
+        var d = [(aKey, aValue)]()
+        for kv in self {
+            d.append((kv.0, kv.1))
+        }
+        return d
+    }
+    
+}
+
+extension Array {
+    var match : (head: Element, tail: [Element])? {
+        return (count > 0) ? (self[0],Array(self[1..<count])) : nil
+    }
 }
 
 enum DefaultColorType {
-    case Bar, Line, BarText, LineText
+    case Bar, Line, BarText, LineText, PieText
     
     func color() -> UIColor {
         switch self {
@@ -70,6 +104,7 @@ enum DefaultColorType {
         case .Line:     return UIColor(hex: "#FF0066")
         case .BarText:  return UIColor(hex: "#333333")
         case .LineText: return UIColor(hex: "#333333")
+        case .PieText:  return UIColor(hex: "#333333")
         }
     }
     

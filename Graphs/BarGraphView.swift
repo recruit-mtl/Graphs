@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum GraphColorType {
+public enum GraphColorType {
     case
     Mat(UIColor),
     Gradation(UIColor, UIColor)
@@ -21,69 +21,62 @@ extension UIColor {
     }
 }
 
-struct BarGraphViewConfig {
+public struct BarGraphViewConfig {
     
-    var barColor: GraphColorType
-    var textColor: UIColor
-    var textVisible: Bool
-    var zeroLineVisible: Bool
-    var barWidthScale: CGFloat
-    var sectionWidth: CGFloat?
+    public var barColor: GraphColorType
+    public var textColor: UIColor
+    public var textFont: UIFont
+    public var textVisible: Bool
+    public var zeroLineVisible: Bool
+    public var barWidthScale: CGFloat
     
-    init(
+    public init(
         barColor: UIColor? = nil,
         textColor: UIColor? = nil,
+        textFont: UIFont? = nil,
         barWidthScale: CGFloat? = nil,
-        sectionWidth: CGFloat? = nil,
         zeroLineVisible: Bool? = nil,
         textVisible: Bool? = nil
     ) {
         self.barColor = (barColor ?? DefaultColorType.Bar.color()).matColor()
         self.textColor = textColor ?? DefaultColorType.BarText.color()
+        self.textFont = textFont ?? UIFont.systemFontOfSize(10.0)
         self.barWidthScale = barWidthScale ?? 0.8
-        self.sectionWidth = sectionWidth
         self.zeroLineVisible = zeroLineVisible ?? true
         self.textVisible = textVisible ?? true
-    }
-    
-    mutating func setBarColor(color: UIColor?) {
-        self.barColor = (color ?? DefaultColorType.Bar.color()).matColor()
     }
 }
 
 
-public class BarGraphView<T: Hashable, U: NumericType>: UIView {
-    
-    public typealias BarGraphTextDisplayHandler = (GraphUnit<T, U>) -> String?
-    
-    public var textDisplayHandler: BarGraphTextDisplayHandler
+internal class BarGraphView<T: Hashable, U: NumericType>: UIView {
+
     
     internal var graph: BarGraph<T, U>?
     
     private var config = BarGraphViewConfig()
     
-    public init(frame: CGRect, graph: BarGraph<T, U>?, textDisplayHandler: BarGraphTextDisplayHandler) {
+    init(frame: CGRect, graph: BarGraph<T, U>?) {
         
         self.graph = graph
-        
-        self.textDisplayHandler = textDisplayHandler
-        
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.clearColor()
+        self.setNeedsDisplay()
     }
     
-    public var barColor: UIColor? = nil {
-        didSet {
-            self.config.setBarColor(barColor)
-            self.setNeedsDisplay()
-        }
+    func setBarGraphViewConfig(config: BarGraphViewConfig?) {
+        
+        self.config = config ?? BarGraphViewConfig()
+        self.setNeedsDisplay()
     }
     
-    public override func drawRect(rect: CGRect) {
+    override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         
         guard let graph = self.graph else { return }
+        
+        let total = graph.units.map{ $0.value }.reduce(U(0)){ $0 + $1 }
+        
         
         graph.units.enumerate().forEach({ (index, u) in
             let min = graph.range.min
@@ -98,7 +91,7 @@ public class BarGraphView<T: Hashable, U: NumericType>: UIView {
                 break
             }
             
-            let sectionWidth = self.config.sectionWidth ?? (self.frame.size.width / CGFloat(graph.units.count))
+            let sectionWidth = self.frame.size.width / CGFloat(graph.units.count)
             let width = sectionWidth * barWidthScale
             
             let zero = self.frame.size.height / CGFloat((max - min).floatValue()) * CGFloat(min.floatValue() - 0.0)
@@ -128,14 +121,14 @@ public class BarGraphView<T: Hashable, U: NumericType>: UIView {
             )
             path.fill()
             
-            if let str = self.textDisplayHandler(u) {
+            if let str = self.graph?.graphTextDisplay()(unit: u, totalValue: total) {
                 
                 let paragraph = NSMutableParagraphStyle()
                 paragraph.alignment = .Center
                 
                 let attrStr = NSAttributedString(string: str, attributes: [
                     NSForegroundColorAttributeName:self.config.textColor,
-                    NSFontAttributeName: UIFont.systemFontOfSize(10.0),
+                    NSFontAttributeName: self.config.textFont,
                     NSParagraphStyleAttributeName: paragraph
                 ])
                 
@@ -146,8 +139,8 @@ public class BarGraphView<T: Hashable, U: NumericType>: UIView {
                         origin: CGPoint(
                             x: sectionWidth * CGFloat(index),
                             y: u.value >= U(0)
-                                ? self.frame.size.height - height + zero - size.height
-                                : self.frame.size.height + zero + height
+                                ? self.frame.size.height - height + zero - size.height - 3.0
+                                : self.frame.size.height + zero + height + 3.0
                         ),
                         size: CGSize(
                             width: sectionWidth,
