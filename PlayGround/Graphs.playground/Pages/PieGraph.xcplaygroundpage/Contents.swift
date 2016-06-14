@@ -4,7 +4,7 @@ import Graphs
 
 let str = "Hello Graphs!!"
 
-let viewFrame = CGRect(x: 0.0, y: 0.0, width: 320.0, height: 320.0)
+let viewFrame = CGRect(x: 0.0, y: 0.0, width: 480.0, height: 480.0)
 
 /* ========= Pie graph ========= */
 
@@ -46,16 +46,14 @@ let v5 = pieGraph3.view(viewFrame).pieGraphConfiguration {
 }
 let lineGraphView5 = v5
 
-/// Minus values
-let v6 = [-5.0, -4.0, -3.0, -2.0, -1.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0].map{ $0 * 10.0 }.pieGraph().view(viewFrame)
-let pieGraphView6 = v6
 
 /// Dictionary -> Graph
 let dict = [
     "A": 20.0,
     "B": 3.14,
     "C": 100.3,
-    "D": 30.0
+    "D": 30.0,
+    "E": 80.0
 ]
 let pieGraph7 = dict.pieGraph() { (unit, totalValue) -> String? in
     return unit.key! + ":" + String(unit.value)

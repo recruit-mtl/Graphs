@@ -104,12 +104,27 @@ enum DefaultColorType {
         case .Line:     return UIColor(hex: "#FF0066")
         case .BarText:  return UIColor(hex: "#333333")
         case .LineText: return UIColor(hex: "#333333")
-        case .PieText:  return UIColor(hex: "#333333")
+        case .PieText:  return UIColor(hex: "#FFFFFF")
         }
     }
     
     static func pieColors(count: Int) -> [UIColor] {
-        return Array(0 ..< count).map({ $0 * 16 }).map({ UIColor(RGBInt: UInt64($0)) })
+        
+        func randomArray(arr: [Int]) -> [Int] {
+            if arr.count <= 0 {
+                return []
+            }
+            let randomIndex = Int(arc4random_uniform(UInt32(arr.count)))
+            var tail = [Int]()
+            for i in 0 ..< arr.count {
+                if i != randomIndex {
+                    tail.append(arr[i])
+                }
+            }
+            return [arr[randomIndex]] + randomArray(tail)
+        }
+        
+        return Array(0 ..< count).map({ $0 }).map({ UIColor(hue: CGFloat($0) / CGFloat(count), saturation: 0.9, brightness: 0.9, alpha: 1.0) })
     }
 }
 
