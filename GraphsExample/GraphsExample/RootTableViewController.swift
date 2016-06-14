@@ -50,16 +50,16 @@ class RootTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        switch segue.identifier {
-        case .Some(graphSegueIdentifier):
-            let index = sender as! Int
-            (segue.destinationViewController as! GraphViewController).graphType = GraphType.all()[index]
-            break
-        case _:
-            break
-        }
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        switch segue.identifier {
+//        case .Some(graphSegueIdentifier):
+//            let index = sender as! Int
+//            (segue.destinationViewController as! GraphViewController).graphType = GraphType.all()[index]
+//            break
+//        case _:
+//            break
+//        }
+//    }
 
     // MARK: - Table view data source
 
@@ -84,7 +84,7 @@ class RootTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        self.performSegueWithIdentifier(graphSegueIdentifier, sender: indexPath.row)
+//        self.performSegueWithIdentifier(graphSegueIdentifier, sender: indexPath.row)
     }
     
 

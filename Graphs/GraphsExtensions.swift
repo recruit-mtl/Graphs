@@ -8,6 +8,52 @@
 
 import UIKit
 
+public protocol GraphData {
+    
+    associatedtype GraphDataKey: Hashable
+    associatedtype GraphDataValue: NumericType
+    
+    var key: GraphDataKey { get }
+    var value: GraphDataValue { get }
+}
+
+//extension GraphData {
+//    
+//    typealias GraphDataKey = String
+//    typealias GraphDataValue = Int
+//}
+
+
+extension SequenceType where Generator.Element: GraphData {
+    
+    typealias GraphDataKey = Generator.Element.GraphDataKey
+    typealias GraphDataValue = Generator.Element.GraphDataValue
+
+    public func barGraph(
+        range: GraphRange<GraphDataValue>? = nil,
+        textDisplayHandler: Graph<GraphDataKey, GraphDataValue>.GraphTextDisplayHandler? = nil
+    ) -> Graph<Generator.Element.GraphDataKey, Generator.Element.GraphDataValue> {
+        
+        return Graph<GraphDataKey, GraphDataValue>(type: .Bar, data: self.map{ $0 }, range: range, textDisplayHandler: textDisplayHandler)
+    }
+    
+    public func lineGraph(
+        range: GraphRange<GraphDataValue>? = nil,
+        textDisplayHandler: Graph<GraphDataKey, GraphDataValue>.GraphTextDisplayHandler? = nil
+    ) -> Graph<Generator.Element.GraphDataKey, Generator.Element.GraphDataValue> {
+        
+        return Graph<GraphDataKey, GraphDataValue>(type: .Line, data: self.map{ $0 }, range: range, textDisplayHandler: textDisplayHandler)
+    }
+    
+    public func pieGraph(
+        textDisplayHandler: Graph<GraphDataKey, GraphDataValue>.GraphTextDisplayHandler? = nil
+    ) -> Graph<Generator.Element.GraphDataKey, Generator.Element.GraphDataValue> {
+        
+        return Graph<GraphDataKey, GraphDataValue>(type: .Pie, data: self.map{ $0 }, range: nil, textDisplayHandler: textDisplayHandler)
+    }
+}
+
+
 extension SequenceType where Generator.Element: NumericType {
     
     public func barGraph(
@@ -88,6 +134,8 @@ extension CollectionType where Self: DictionaryLiteralConvertible, Self.Key: Has
     }
     
 }
+
+
 
 extension Array {
     var match : (head: Element, tail: [Element])? {

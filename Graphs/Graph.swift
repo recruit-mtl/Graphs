@@ -37,6 +37,56 @@ public class Graph<T: Hashable, U: NumericType> {
 
 public extension Graph {
     
+    public convenience init<S: GraphData where S.GraphDataKey == T, S.GraphDataValue == U>(type: GraphType, data: [S], min minOrNil: U? = nil, max maxOrNil: U? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) {
+        
+        let range = {() -> GraphRange<U>? in
+            if let min = minOrNil, let max = maxOrNil {
+                return GraphRange(min: min, max: max)
+            }
+            return nil
+        }
+        
+        self.init(type: type, data: data, range: range(), textDisplayHandler: textDisplayHandler)
+    }
+    
+    public convenience init<S: GraphData where S.GraphDataKey == T, S.GraphDataValue == U>(type: GraphType, data: [S], range rangeOrNil: GraphRange<U>? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) {
+        
+        let r = {() -> GraphRange<U> in
+            if let r = rangeOrNil { return r }
+            let sorted = data.sort{ $0.value < $1.value }
+            return GraphRange<U>(
+                min: sorted.first?.value ?? U(0),
+                max: sorted.last?.value ?? U(0)
+            )
+        }
+        
+        switch type {
+        case .Bar:
+            
+            self.init(barGraph:BarGraph<T, U>(
+                units: data.map{ GraphUnit<T, U>(key: $0.key, value: $0.value) },
+                range: r(),
+                textDisplayHandler: textDisplayHandler
+                ))
+            
+        case .Line:
+            
+            self.init(lineGraph: LineGraph<T, U>(
+                units: data.map{ GraphUnit<T, U>(key: $0.key, value: $0.value) },
+                range: r(),
+                textDisplayHandler: textDisplayHandler
+                ))
+            
+        case .Pie:
+            
+            self.init(pieGraph: PieGraph<T, U>(
+                units: data.map{ GraphUnit<T, U>(key: $0.key, value: $0.value) },
+                textDisplayHandler: textDisplayHandler
+                ))
+        }
+        
+    }
+    
     public convenience init(type: GraphType, array: [U], min minOrNil: U? = nil, max maxOrNil: U? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) {
         
         let range = {() -> GraphRange<U>? in

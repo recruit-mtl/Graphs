@@ -10,8 +10,48 @@
 
 ## Installation
 ### [CocoaPods](https://cocoapods.org)
+```bash
+$ pod init
+```
 
+specify it in your `Podfile`
+
+```ruby
+platform :ios, '8.0'
+
+target 'TargetName' do
+
+  use_frameworks!
+  pod 'Graphs', '~> 0.1.0'
+
+end
+```
+
+And run `CocoaPods`
+
+```bash
+$ pod install
+```
+
+--
 ### [Carthage](https://github.com/Carthage/Carthage)
+You can install Carthage with Homebrew.
+
+```bash
+$ brew update
+$ brew install carthage
+```
+specify it in your `Cartfile`
+
+```
+github "recruit-mtl/Graphs"
+```
+
+And run `carthage`
+
+```bash
+$ carthage update --platform ios
+```
 
 ## Usage
 
@@ -22,21 +62,56 @@ import Graphs
 
 ##### Range -> GraphView (Bar)
 ```swift
-let view = (1 ... 10).barGraph().view(viewFrame)
+let view = (1 ... 10).barGraph(GraphRange(min: 0, max: 11)).view(viewFrame)
 ```
-TODO: picture
+<img src="https://s3-ap-northeast-1.amazonaws.com/graphs-mtl/graphs1.png" width="363" />
 
 ##### Array -> GraphView (Line)
 ```swift
-let view = [3, 8, 9, 20, 4, 6, 10].lineGraph().view(viewFrame)
+let view = [10, 20, 4, 8, 25, 18, 21, 24, 8, 15].lineGraph(GraphRange(min: 0, max: 30)).view(viewFrame)
 ```
-TODO: picture
+<img src="https://s3-ap-northeast-1.amazonaws.com/graphs-mtl/graphs2.png" width="349" />
 
 ##### Dictionary -> GraphView (Pie)
 ```swift
 let view = ["a": 3, "b": 8, "c": 9, "d": 20].pieGraph().view(viewFrame)
 ```
-TODO: picture
+
+##### GraphData protocol -> GraphView (Pie)
+```swift
+import Graphs
+
+struct Data<T: Hashable, U: NumericType>: GraphData {
+    typealias GraphDataKey = T
+    typealias GraphDataValue = U
+    
+    private let _key: T
+    private let _value: U
+    
+    init(key: T, value: U) {
+        self._key = key
+        self._value = value
+    }
+    
+    var key: T { get{ return self._key } }
+    var value: U { get{ return self._value } }
+}
+
+let data = [
+    Data(key: "John", value: 18.9),
+    Data(key: "Ken", value: 32.9),
+    Data(key: "Taro", value: 15.3),
+    Data(key: "Micheal", value: 22.9),
+    Data(key: "Jun", value: 12.9),
+    Data(key: "Hanako", value: 32.2),
+    Data(key: "Kent", value: 3.8)
+]
+
+let view = data.pieGraph() { (unit, totalValue) -> String? in
+    return unit.key! + "\n" + String(format: "%.0f%%", unit.value / totalValue * 100.0)
+}.view(viewFrame)
+```
+<img src="https://s3-ap-northeast-1.amazonaws.com/graphs-mtl/graphs3.png" width="323	" />
 
 ##### More detail
 -> Read Playgrounds

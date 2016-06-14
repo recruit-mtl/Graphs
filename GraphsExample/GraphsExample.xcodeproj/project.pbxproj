@@ -13,9 +13,7 @@
 		E92069B31CFC3D200025DBC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E92069B21CFC3D200025DBC8 /* Assets.xcassets */; };
 		E92069B61CFC3D200025DBC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92069B41CFC3D200025DBC8 /* LaunchScreen.storyboard */; };
 		E92069C11CFC3D200025DBC8 /* GraphsExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92069C01CFC3D200025DBC8 /* GraphsExampleTests.swift */; };
-		E9B004E01D0A8FC80099557B /* GraphTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B004DF1D0A8FC80099557B /* GraphTableViewCell.swift */; };
 		E9E983121D07B1F600692217 /* RootTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E983111D07B1F600692217 /* RootTableViewController.swift */; };
-		E9E983181D07EBDD00692217 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E983171D07EBDD00692217 /* GraphViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,9 +39,7 @@
 		E92069BC1CFC3D200025DBC8 /* GraphsExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GraphsExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E92069C01CFC3D200025DBC8 /* GraphsExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphsExampleTests.swift; sourceTree = "<group>"; };
 		E92069C21CFC3D200025DBC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E9B004DF1D0A8FC80099557B /* GraphTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphTableViewCell.swift; sourceTree = "<group>"; };
 		E9E983111D07B1F600692217 /* RootTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTableViewController.swift; sourceTree = "<group>"; };
-		E9E983171D07EBDD00692217 /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +103,6 @@
 			children = (
 				E92069AB1CFC3D200025DBC8 /* AppDelegate.swift */,
 				E9E983111D07B1F600692217 /* RootTableViewController.swift */,
-				E9E983171D07EBDD00692217 /* GraphViewController.swift */,
-				E9B004DF1D0A8FC80099557B /* GraphTableViewCell.swift */,
 				E92069AF1CFC3D200025DBC8 /* Main.storyboard */,
 				E92069B21CFC3D200025DBC8 /* Assets.xcassets */,
 				E92069B41CFC3D200025DBC8 /* LaunchScreen.storyboard */,
@@ -294,8 +288,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9B004E01D0A8FC80099557B /* GraphTableViewCell.swift in Sources */,
-				E9E983181D07EBDD00692217 /* GraphViewController.swift in Sources */,
 				E92069AC1CFC3D200025DBC8 /* AppDelegate.swift in Sources */,
 				E9E983121D07B1F600692217 /* RootTableViewController.swift in Sources */,
 			);

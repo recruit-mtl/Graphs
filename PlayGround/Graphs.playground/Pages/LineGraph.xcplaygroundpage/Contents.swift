@@ -56,3 +56,37 @@ let lineGraph7 = dict.lineGraph(GraphRange(min: -50.0, max: 120.0)) { (unit, tot
     return unit.key! + ":" + String(unit.value)
 }
 let lineGraphView7 = lineGraph7.view(viewFrame)
+
+/// GraphData Protocol -> Graph
+
+struct Data<T: Hashable, U: NumericType>: GraphData {
+    typealias GraphDataKey = T
+    typealias GraphDataValue = U
+    
+    private let _key: T
+    private let _value: U
+    
+    init(key: T, value: U) {
+        self._key = key
+        self._value = value
+    }
+    
+    var key: T { get{ return self._key } }
+    var value: U { get{ return self._value } }
+}
+
+let data = [
+    Data(key: "John", value: 18.9),
+    Data(key: "Ken", value: 32.9),
+    Data(key: "Taro", value: 15.3),
+    Data(key: "Micheal", value: 22.9),
+    Data(key: "Jun", value: -12.9),
+    Data(key: "Hanako", value: 32.2),
+    Data(key: "Kent", value: 3.8)
+]
+
+let lineGraph8 = data.lineGraph(GraphRange(min: -22.0, max: 42.0)) { (unit, totalValue) -> String? in
+    return String(unit.value)
+}
+
+let lineGraphView8 = lineGraph8.view(viewFrame)
