@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
   s.homepage     = "https://github.com/recruit-mtl/Graphs"
 
-  s.license      = { :type => "MIT", :file => "LICENSE" }
+  s.license      = { :type => "MIT", :file => "LICENSE.md" }
 
   s.author             = { "kokoro" => "korotan1@mac.com" }
   s.social_media_url   = "https://twitter.com/kokoron"
@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
 
   s.source       = { :git => "https://github.com/recruit-mtl/Graphs.git",
-                      :tag => "v0.1.0"
+                      :tag => "0.1.0"
                     }
 
   s.source_files  = "Graphs/*.swift"
