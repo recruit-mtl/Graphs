@@ -19,6 +19,13 @@
 		E984B7B41CFD303000E2C834 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E984B7B31CFD303000E2C834 /* Nimble.framework */; };
 		E984B7B61CFD303C00E2C834 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E984B7B51CFD303C00E2C834 /* Quick.framework */; };
 		E9AF3B6F1D068A0E00F0B18B /* PieGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AF3B6E1D068A0E00F0B18B /* PieGraphView.swift */; };
+		E9E79B191D10FAC60000FEE7 /* Graph.swift in Headers */ = {isa = PBXBuildFile; fileRef = E920699C1CFC20D00025DBC8 /* Graph.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		E9E79B1A1D10FAC60000FEE7 /* GraphView.swift in Headers */ = {isa = PBXBuildFile; fileRef = E955F4C81CFE73B6006E9D25 /* GraphView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		E9E79B1B1D10FAC60000FEE7 /* BarGraphView.swift in Headers */ = {isa = PBXBuildFile; fileRef = E96B3C5B1D011DC8006D5FD9 /* BarGraphView.swift */; };
+		E9E79B1C1D10FAC60000FEE7 /* LineGraphView.swift in Headers */ = {isa = PBXBuildFile; fileRef = E9428EEE1D0168F400DBFBD9 /* LineGraphView.swift */; };
+		E9E79B1D1D10FAC60000FEE7 /* PieGraphView.swift in Headers */ = {isa = PBXBuildFile; fileRef = E9AF3B6E1D068A0E00F0B18B /* PieGraphView.swift */; };
+		E9E79B1E1D10FAC60000FEE7 /* MultiBarGraphView.swift in Headers */ = {isa = PBXBuildFile; fileRef = E97752201D095676008AB30A /* MultiBarGraphView.swift */; };
+		E9E79B1F1D10FAC60000FEE7 /* GraphsExtensions.swift in Headers */ = {isa = PBXBuildFile; fileRef = E984B7B11CFD282700E2C834 /* GraphsExtensions.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +138,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E92069861CFC20840025DBC8 /* Graphs.h in Headers */,
+				E9E79B191D10FAC60000FEE7 /* Graph.swift in Headers */,
+				E9E79B1A1D10FAC60000FEE7 /* GraphView.swift in Headers */,
+				E9E79B1F1D10FAC60000FEE7 /* GraphsExtensions.swift in Headers */,
+				E9E79B1B1D10FAC60000FEE7 /* BarGraphView.swift in Headers */,
+				E9E79B1C1D10FAC60000FEE7 /* LineGraphView.swift in Headers */,
+				E9E79B1D1D10FAC60000FEE7 /* PieGraphView.swift in Headers */,
+				E9E79B1E1D10FAC60000FEE7 /* MultiBarGraphView.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
