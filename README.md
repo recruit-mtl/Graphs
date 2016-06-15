@@ -117,6 +117,13 @@ let view = data.pieGraph() { (unit, totalValue) -> String? in
 ##### More detail
 -> Read Playgrounds
 
+## Issues
+### GraphView doesn't work on Interface builder.
+Interface Builder talks to code through the ObjC runtime. 
+And ObjC doesn't do generics.
+
+
+
 ## Licence
 
 [MIT](https://github.com/recruit-mtl/MTLLinkLabel/blob/master/LICENSE)
