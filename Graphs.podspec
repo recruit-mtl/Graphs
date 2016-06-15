@@ -10,13 +10,13 @@ Pod::Spec.new do |s|
 
   s.name         = "Graphs"
   s.version      = "0.1.0"
-  s.summary      = "Chart"
+  s.summary      = "Charts view generater"
 
   s.description  = <<-DESC
-                    Chart views
+                    Light weight charts view generater for iOS. Written in Swift.
                    DESC
 
-  s.homepage     = "http://mtl.recruit.co.jp"
+  s.homepage     = "https://github.com/recruit-mtl/Graphs"
 
   s.license      = { :type => "MIT", :file => "LICENSE" }
 
@@ -30,11 +30,6 @@ Pod::Spec.new do |s|
                       :tag => "v0.1.0"
                     }
 
-  # s.header_dir = "MTLLinkLabel"
-  #
-  # s.header_mappings_dir = "MTLLinkLabel"
-
-  # s.public_header_files = "MTLLinkLabel/*.h"
   s.source_files  = "Graphs/*.swift"
 
   s.requires_arc = true
