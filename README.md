@@ -1,8 +1,9 @@
 # Graphs
+[![Badge w/ Version](https://cocoapod-badges.herokuapp.com/v/Graphs/badge.png)](https://cocoadocs.org/docsets/MTLLinkLabel)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
-####Light weight charts view generater for iOS.
+###Light weight charts view generater for iOS. Writen in swift.
 
 ## Requirements
 - iOS 8.0+
