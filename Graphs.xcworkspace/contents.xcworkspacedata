@@ -5,6 +5,6 @@
       location = "group:/Users/kokoro/WorkSpace/iOS/Graphs/PlayGround/Graphs.playground">
    </FileRef>
    <FileRef
-      location = "group:../Graphs.xcodeproj">
+      location = "group:Graphs.xcodeproj">
    </FileRef>
 </Workspace>

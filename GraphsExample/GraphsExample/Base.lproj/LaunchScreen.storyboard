@@ -16,7 +16,24 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Light weight charts view generater for iOS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tzq-w3-CSX">
+                                <rect key="frame" x="162" y="302.5" width="276.5" height="19"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="graphs_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-2N-AOb">
+                                <rect key="frame" x="188" y="197" width="224" height="85"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Bxd-2N-AOb" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Jyk-aF-9qv"/>
+                            <constraint firstItem="Tzq-w3-CSX" firstAttribute="top" secondItem="Bxd-2N-AOb" secondAttribute="bottom" constant="20" id="LuZ-Lc-jqX"/>
+                            <constraint firstItem="Bxd-2N-AOb" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-60" id="PGI-Rv-Co2"/>
+                            <constraint firstItem="Tzq-w3-CSX" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="b96-id-s7A"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +41,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="graphs_logo" width="224" height="85"/>
+    </resources>
 </document>

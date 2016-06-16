@@ -5,6 +5,8 @@
 
 ###Light weight charts view generater for iOS. Written in Swift.
 
+<img src="https://s3-ap-northeast-1.amazonaws.com/graphs-mtl/graphs_mock.png" width="850" alt="Graphs mock" />
+
 ## Requirements
 - iOS 8.0+
 - XCode 7.3+
@@ -117,12 +119,19 @@ let view = data.pieGraph() { (unit, totalValue) -> String? in
 ##### More detail
 -> Read Playgrounds
 
+## Demo
+
+```bash
+$ git clone https://github.com/recruit-mtl/Graphs.git
+$ cd /path/to/Graphs/GraphsExample
+$ pod install
+```
+And Open ```GraphsExample.xcworkspace```
+
 ## Issues
 ### GraphView doesn't work on Interface builder.
 Interface Builder talks to code through the ObjC runtime. 
 And ObjC doesn't do generics.
-
-
 
 ## Licence
 

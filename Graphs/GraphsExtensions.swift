@@ -176,7 +176,7 @@ enum DefaultColorType {
     }
 }
 
-extension UIColor {
+public extension UIColor {
     
     convenience init(RGBInt: UInt64, alpha: Float = 1.0) {
         self.init(

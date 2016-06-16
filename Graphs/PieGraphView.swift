@@ -64,6 +64,8 @@ internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
             }
         }
         
+        let colors = self.config.pieColors ?? DefaultColorType.pieColors(graph.units.count)
+        
         let values = graph.units.map({ max($0.value, U(0)) })
         let total = values.reduce(U(0), combine: { $0 + $1 })
         let percentages = values.map({ Double($0.floatValue() / total.floatValue()) })
@@ -92,7 +94,7 @@ internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
                 CGContextAddArc(context, x, y, radius/2,  CGFloat(endAngle), CGFloat(startAngle), 1)
             }
             
-            CGContextSetFillColor(context, CGColorGetComponents( self.config.pieColors![index].CGColor ))
+            CGContextSetFillColor(context, CGColorGetComponents( colors[index].CGColor ))
             CGContextClosePath(context);
             CGContextFillPath(context);
             startAngle = endAngle

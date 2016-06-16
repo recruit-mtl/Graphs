@@ -3,37 +3,10 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Graphs-->
-        <scene sceneID="pi6-dl-Uxz">
-            <objects>
-                <tableViewController title="Graphs" id="cVx-RA-jBV" customClass="RootTableViewController" customModule="GraphsExample" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="YdH-Xm-Ypx">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="Fm8-Ji-FDo">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fm8-Ji-FDo" id="4U6-Cc-wCe">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="cVx-RA-jBV" id="4hN-OS-jyy"/>
-                            <outlet property="delegate" destination="cVx-RA-jBV" id="E60-hV-sIG"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Graphs" id="6GL-gW-vaA"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cO4-A6-tgO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="280" y="257"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="ksK-Me-yyn">
             <objects>
@@ -43,12 +16,117 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="cVx-RA-jBV" kind="relationship" relationship="rootViewController" id="9ZQ-B8-rFk"/>
+                        <segue destination="MIx-Nr-b9K" kind="relationship" relationship="rootViewController" id="swR-vs-46F"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Djs-YR-hj3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-540" y="257"/>
         </scene>
+        <!--Main View Controller-->
+        <scene sceneID="nNb-mo-Im0">
+            <objects>
+                <viewController id="MIx-Nr-b9K" customClass="MainViewController" customModule="GraphsExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c2U-6V-Gbw"/>
+                        <viewControllerLayoutGuide type="bottom" id="uop-MR-1nV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="H71-by-HnV">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="j4H-wU-V66">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="qeE-TG-CxY">
+                                    <size key="itemSize" width="277" height="263"/>
+                                    <size key="headerReferenceSize" width="50" height="133"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="NlX-yp-fYr" customClass="GraphCollectionViewCell" customModule="GraphsExample" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="205" width="277" height="263"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="277" height="263"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7V4-hE-tqQ">
+                                                    <rect key="frame" x="8" y="8" width="261" height="196"/>
+                                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="7V4-hE-tqQ" secondAttribute="height" multiplier="240:180" id="Am8-jf-mH1"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZg-qy-dri">
+                                                    <rect key="frame" x="8" y="212" width="261" height="43"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="12"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="dZg-qy-dri" firstAttribute="bottom" secondItem="NlX-yp-fYr" secondAttribute="bottomMargin" id="5by-j9-uKP"/>
+                                            <constraint firstItem="7V4-hE-tqQ" firstAttribute="leading" secondItem="NlX-yp-fYr" secondAttribute="leadingMargin" id="Rxh-j8-jJ4"/>
+                                            <constraint firstItem="dZg-qy-dri" firstAttribute="top" secondItem="7V4-hE-tqQ" secondAttribute="bottom" constant="8" id="fwi-uk-Ylk"/>
+                                            <constraint firstItem="7V4-hE-tqQ" firstAttribute="trailing" secondItem="NlX-yp-fYr" secondAttribute="trailingMargin" id="fz5-fZ-1VS"/>
+                                            <constraint firstItem="7V4-hE-tqQ" firstAttribute="top" secondItem="NlX-yp-fYr" secondAttribute="topMargin" id="r4Z-qv-olt"/>
+                                            <constraint firstItem="dZg-qy-dri" firstAttribute="leading" secondItem="NlX-yp-fYr" secondAttribute="leadingMargin" id="uyD-8u-ofu"/>
+                                            <constraint firstItem="dZg-qy-dri" firstAttribute="trailing" secondItem="NlX-yp-fYr" secondAttribute="trailingMargin" id="x5M-sF-EnZ"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="graphView" destination="7V4-hE-tqQ" id="gCF-rc-mGy"/>
+                                            <outlet property="label" destination="dZg-qy-dri" id="j7V-Li-9SR"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Header" id="LNa-uu-mPu">
+                                    <rect key="frame" x="0.0" y="64" width="600" height="133"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="graphs_logo" translatesAutoresizingMaskIntoConstraints="NO" id="dQg-3Q-dH6">
+                                            <rect key="frame" x="188" y="24" width="224" height="85"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="85" id="1Ac-Jv-405"/>
+                                                <constraint firstAttribute="width" constant="224" id="s2c-F7-4Vl"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="dQg-3Q-dH6" firstAttribute="centerX" secondItem="LNa-uu-mPu" secondAttribute="centerX" id="C6i-o4-3C5"/>
+                                        <constraint firstItem="dQg-3Q-dH6" firstAttribute="centerY" secondItem="LNa-uu-mPu" secondAttribute="centerY" id="ruS-oG-Yfy"/>
+                                    </constraints>
+                                </collectionReusableView>
+                                <connections>
+                                    <outlet property="dataSource" destination="MIx-Nr-b9K" id="HDd-Nx-drf"/>
+                                    <outlet property="delegate" destination="MIx-Nr-b9K" id="XQw-UW-1Ko"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="j4H-wU-V66" secondAttribute="trailing" id="6g8-S8-A6W"/>
+                            <constraint firstItem="j4H-wU-V66" firstAttribute="top" secondItem="H71-by-HnV" secondAttribute="top" id="LwY-6c-hD8"/>
+                            <constraint firstItem="j4H-wU-V66" firstAttribute="leading" secondItem="H71-by-HnV" secondAttribute="leading" id="NTQ-bY-yVn"/>
+                            <constraint firstItem="uop-MR-1nV" firstAttribute="top" secondItem="j4H-wU-V66" secondAttribute="bottom" id="Vab-zR-MTa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="i0F-jY-UNp"/>
+                    <connections>
+                        <outlet property="collectionView" destination="j4H-wU-V66" id="gNM-Dc-TlX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fDB-JF-Arb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="101" y="257"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="graphs_logo" width="224" height="85"/>
+    </resources>
 </document>
