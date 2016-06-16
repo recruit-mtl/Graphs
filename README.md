@@ -25,7 +25,7 @@ platform :ios, '8.0'
 target 'TargetName' do
 
   use_frameworks!
-  pod 'Graphs', '~> 0.1.0'
+  pod 'Graphs', '~> 0.1.1'
 
 end
 ```
