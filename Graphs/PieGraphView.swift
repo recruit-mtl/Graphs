@@ -14,17 +14,20 @@ public struct PieGraphViewConfig {
     public var textColor: UIColor
     public var textFont: UIFont
     public var isDounut: Bool
+    public var contentInsets: UIEdgeInsets
     
     public init(
         pieColors: [UIColor]? = nil,
         textColor: UIColor? = nil,
         textFont: UIFont? = nil,
-        isDounut: Bool = false
+        isDounut: Bool = false,
+        contentInsets: UIEdgeInsets? = nil
     ) {
         self.pieColors = pieColors
         self.textColor = textColor ?? DefaultColorType.PieText.color()
         self.textFont = textFont ?? UIFont.systemFontOfSize(10.0)
         self.isDounut = isDounut
+        self.contentInsets = contentInsets ?? UIEdgeInsetsZero
     }
     
 }
@@ -70,10 +73,12 @@ internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
         let total = values.reduce(U(0), combine: { $0 + $1 })
         let percentages = values.map({ Double($0.floatValue() / total.floatValue()) })
         
+        let rect = self.graphFrame()
+        
         let context = UIGraphicsGetCurrentContext();
-        let x = self.frame.size.width / 2.0
-        let y = self.frame.size.height / 2.0
-        let radius = min(x, y) * 0.8
+        let x = rect.size.width / 2.0 + rect.origin.x
+        let y = rect.size.height / 2.0 + rect.origin.y
+        let radius = min(rect.width, rect.height) / 2.0
         
         let centers = convert(0.0, arr: percentages) { $0 / 2.0 }.map { (c) -> CGPoint in
             let angle = M_PI * 2.0 * c - M_PI / 2.0
@@ -129,5 +134,13 @@ internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
         }
     }
     
+    private func graphFrame() -> CGRect {
+        return CGRect(
+            x: self.config.contentInsets.left,
+            y: self.config.contentInsets.top,
+            width: self.frame.size.width - self.config.contentInsets.horizontalMarginsTotal(),
+            height: self.frame.size.height - self.config.contentInsets.verticalMarginsTotal()
+        )
+    }
 
 }

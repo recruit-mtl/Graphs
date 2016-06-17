@@ -8,6 +8,10 @@
 
 import UIKit
 
+/**
+ GraphData protocols array can make 'Graph' object.
+ */
+
 public protocol GraphData {
     
     associatedtype GraphDataKey: Hashable
@@ -17,18 +21,16 @@ public protocol GraphData {
     var value: GraphDataValue { get }
 }
 
-//extension GraphData {
-//    
-//    typealias GraphDataKey = String
-//    typealias GraphDataValue = Int
-//}
 
+/**
+ SequenceType<S: GraphData> -> 'Graph' object
+ */
 
 extension SequenceType where Generator.Element: GraphData {
     
     typealias GraphDataKey = Generator.Element.GraphDataKey
     typealias GraphDataValue = Generator.Element.GraphDataValue
-
+    
     public func barGraph(
         range: GraphRange<GraphDataValue>? = nil,
         textDisplayHandler: Graph<GraphDataKey, GraphDataValue>.GraphTextDisplayHandler? = nil
@@ -53,6 +55,10 @@ extension SequenceType where Generator.Element: GraphData {
     }
 }
 
+
+/**
+ SequenceType<S: NumericType> -> 'Graph' object
+ */
 
 extension SequenceType where Generator.Element: NumericType {
     
@@ -83,6 +89,10 @@ extension SequenceType where Generator.Element: NumericType {
     
 }
 
+
+/**
+ Dictionary -> 'Graph' object
+ */
 
 extension CollectionType where Self: DictionaryLiteralConvertible, Self.Key: Hashable, Self.Value: NumericType, Generator.Element == (Self.Key, Self.Value) {
     
@@ -134,7 +144,6 @@ extension CollectionType where Self: DictionaryLiteralConvertible, Self.Key: Has
     }
     
 }
-
 
 
 extension Array {
@@ -220,8 +229,38 @@ public extension UIColor {
             self.init(white: 0.0, alpha: 1.0)
         }
     }
+}
+
+public extension UIEdgeInsets {
     
+//    public init(all: CGFloat) {
+//        self.left = all
+//        self.right = self.left
+//        self.top = self.left
+//        self.bottom = self.left
+//    }
     
+    public func verticalMarginsTotal() -> CGFloat {
+        return self.top + self.bottom
+    }
+    
+    public func horizontalMarginsTotal() -> CGFloat {
+        return self.left + self.right
+    }
+}
+
+extension NSAttributedString {
+    
+    class func graphAttributedString(string: String, color: UIColor, font: UIFont) -> NSAttributedString {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .Center
+        
+        return NSAttributedString(string: string, attributes: [
+            NSForegroundColorAttributeName:color,
+            NSFontAttributeName: font,
+            NSParagraphStyleAttributeName: paragraph
+        ])
+    }
 }
 
 

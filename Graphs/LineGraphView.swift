@@ -16,7 +16,7 @@ public struct LineGraphViewConfig {
     public var textFont: UIFont
     public var dotEnable: Bool
     public var dotDiameter: CGFloat
-    public var sectionWidth: CGFloat?
+    public var contentInsets: UIEdgeInsets
     
     public init(
         lineColor: UIColor? = nil,
@@ -25,15 +25,15 @@ public struct LineGraphViewConfig {
         textFont: UIFont? = nil,
         dotEnable: Bool? = nil,
         dotDiameter: CGFloat? = nil,
-        sectionWidth: CGFloat? = nil
-        ) {
+        contentInsets: UIEdgeInsets? = nil
+    ) {
         self.lineColor = lineColor ?? DefaultColorType.Line.color()
         self.lineWidth = lineWidth ?? 3.0
         self.textColor = textColor ?? DefaultColorType.LineText.color()
         self.textFont = textFont ?? UIFont.systemFontOfSize(10.0)
         self.dotEnable = true
         self.dotDiameter = dotDiameter ?? 10.0
-        self.sectionWidth = sectionWidth
+        self.contentInsets = contentInsets ?? UIEdgeInsetsZero
     }
 }
 
@@ -66,14 +66,10 @@ internal class LineGraphView<T: Hashable, U: NumericType>: UIView {
         super.drawRect(rect)
         
         guard let lineGraph = self.graph else { return }
-        
+        let rect = self.graphFrame()
         let total = lineGraph.units.map{ $0.value }.reduce(U(0)){ $0 + $1 }
-        
-        let ps = self.points(lineGraph, sectionWidth: self.config.sectionWidth)
-        
-        let textColor = self.config.textColor
-        
-        let sectionWidth = self.config.sectionWidth ?? (self.frame.size.width / CGFloat(lineGraph.units.count))
+        let sectionWidth = rect.width / CGFloat(lineGraph.units.count)
+        let ps = self.points(lineGraph, rect: rect)
         
         let context = UIGraphicsGetCurrentContext()
         CGContextSetStrokeColorWithColor(context, config.lineColor.CGColor ?? UIColor.blackColor().CGColor)
@@ -107,14 +103,7 @@ internal class LineGraphView<T: Hashable, U: NumericType>: UIView {
                 return
             }
             
-            let paragraph = NSMutableParagraphStyle()
-            paragraph.alignment = .Center
-            
-            let attrStr = NSAttributedString(string: str, attributes: [
-                NSForegroundColorAttributeName:textColor,
-                NSFontAttributeName: UIFont.systemFontOfSize(10.0),
-                NSParagraphStyleAttributeName: paragraph
-                ])
+            let attrStr = NSAttributedString.graphAttributedString(str, color: self.config.textColor, font: self.config.textFont)
             
             let size = attrStr.size()
             
@@ -135,14 +124,23 @@ internal class LineGraphView<T: Hashable, U: NumericType>: UIView {
         }
     }
     
-    private func points(graph: LineGraph<T, U>, sectionWidth: CGFloat?) -> [CGPoint] {
+    private func graphFrame() -> CGRect {
+        return CGRect(
+            x: self.config.contentInsets.left,
+            y: self.config.contentInsets.top,
+            width: self.frame.size.width - self.config.contentInsets.horizontalMarginsTotal(),
+            height: self.frame.size.height - self.config.contentInsets.verticalMarginsTotal()
+        )
+    }
+    
+    private func points(graph: LineGraph<T, U>, rect: CGRect) -> [CGPoint] {
         
-        let interval = sectionWidth ?? (self.frame.width / CGFloat(graph.units.count))
+        let sectionWidth = rect.width / CGFloat(graph.units.count)
         
         return graph.units.enumerate().map {
             CGPoint(
-                x: CGFloat($0) * interval + (interval / 2.0),
-                y: self.frame.size.height - self.frame.size.height * CGFloat(($1.value - graph.range.min).floatValue() / (graph.range.max - graph.range.min).floatValue())
+                x: CGFloat($0) * sectionWidth + (sectionWidth / 2.0) + rect.origin.x,
+                y: rect.size.height - rect.size.height * CGFloat(($1.value - graph.range.min).floatValue() / (graph.range.max - graph.range.min).floatValue()) + rect.origin.y
             )
         }
     }
