@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "Graphs"
-  s.version      = "0.1.1"
+  s.version      = "0.1.2"
   s.summary      = "Charts view generater"
 
   s.description  = <<-DESC
@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
 
   s.source       = { :git => "https://github.com/recruit-mtl/Graphs.git",
-                      :tag => "0.1.1"
+                      :tag => "0.1.2"
                     }
 
   s.source_files  = "Graphs/*.swift"
