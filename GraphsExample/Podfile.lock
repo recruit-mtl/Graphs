@@ -1,14 +1,14 @@
 PODS:
-  - Graphs (0.1.0)
+  - Graphs (0.1.2)
 
 DEPENDENCIES:
   - Graphs (from `..`)
 
 EXTERNAL SOURCES:
   Graphs:
-    :path: ".."
+    :path: ..
 
 SPEC CHECKSUMS:
-  Graphs: 86c8882eff318c40ed092790116aaa8d23d52676
+  Graphs: 08e8c2ee01dc13c96222dfd92ccb018d14748f4c
 
 COCOAPODS: 0.39.0

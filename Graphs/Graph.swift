@@ -10,34 +10,34 @@ import UIKit
 
 public enum GraphType {
     case
-    Bar,
-    Line,
-    Pie
+    bar,
+    line,
+    pie
 }
 
-public class Graph<T: Hashable, U: NumericType> {
+open class Graph<T: Hashable, U: NumericType> {
     
-    public typealias GraphTextDisplayHandler = (unit: GraphUnit<T, U>, totalValue: U) -> String?
+    public typealias GraphTextDisplayHandler = (_ unit: GraphUnit<T, U>, _ totalValue: U) -> String?
     
     let kind: GraphKind<T, U>
     
     
     init(barGraph: BarGraph<T, U>) {
-        self.kind = GraphKind<T, U>.Bar(barGraph)
+        self.kind = GraphKind<T, U>.bar(barGraph)
     }
     
     init(lineGraph: LineGraph<T, U>) {
-        self.kind = GraphKind<T, U>.Line(lineGraph)
+        self.kind = GraphKind<T, U>.line(lineGraph)
     }
     
     init(pieGraph: PieGraph<T, U>) {
-        self.kind = GraphKind<T, U>.Pie(pieGraph)
+        self.kind = GraphKind<T, U>.pie(pieGraph)
     }
 }
 
 public extension Graph {
     
-    public convenience init<S: GraphData where S.GraphDataKey == T, S.GraphDataValue == U>(type: GraphType, data: [S], min minOrNil: U? = nil, max maxOrNil: U? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) {
+    public convenience init<S: GraphData>(type: GraphType, data: [S], min minOrNil: U? = nil, max maxOrNil: U? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) where S.GraphDataKey == T, S.GraphDataValue == U {
         
         let range = {() -> GraphRange<U>? in
             if let min = minOrNil, let max = maxOrNil {
@@ -49,11 +49,11 @@ public extension Graph {
         self.init(type: type, data: data, range: range(), textDisplayHandler: textDisplayHandler)
     }
     
-    public convenience init<S: GraphData where S.GraphDataKey == T, S.GraphDataValue == U>(type: GraphType, data: [S], range rangeOrNil: GraphRange<U>? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) {
+    public convenience init<S: GraphData>(type: GraphType, data: [S], range rangeOrNil: GraphRange<U>? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) where S.GraphDataKey == T, S.GraphDataValue == U {
         
         let r = {() -> GraphRange<U> in
             if let r = rangeOrNil { return r }
-            let sorted = data.sort{ $0.value < $1.value }
+            let sorted = data.sorted{ $0.value < $1.value }
             return GraphRange<U>(
                 min: sorted.first?.value ?? U(0),
                 max: sorted.last?.value ?? U(0)
@@ -61,7 +61,7 @@ public extension Graph {
         }
         
         switch type {
-        case .Bar:
+        case .bar:
             
             self.init(barGraph:BarGraph<T, U>(
                 units: data.map{ GraphUnit<T, U>(key: $0.key, value: $0.value) },
@@ -69,7 +69,7 @@ public extension Graph {
                 textDisplayHandler: textDisplayHandler
                 ))
             
-        case .Line:
+        case .line:
             
             self.init(lineGraph: LineGraph<T, U>(
                 units: data.map{ GraphUnit<T, U>(key: $0.key, value: $0.value) },
@@ -77,7 +77,7 @@ public extension Graph {
                 textDisplayHandler: textDisplayHandler
                 ))
             
-        case .Pie:
+        case .pie:
             
             self.init(pieGraph: PieGraph<T, U>(
                 units: data.map{ GraphUnit<T, U>(key: $0.key, value: $0.value) },
@@ -103,7 +103,7 @@ public extension Graph {
         
         let r = {() -> GraphRange<U> in
             if let r = rangeOrNil { return r }
-            let sorted = array.sort{ $0 < $1 }
+            let sorted = array.sorted{ $0 < $1 }
             return GraphRange<U>(
                 min: sorted.first ?? U(0),
                 max: sorted.last ?? U(0)
@@ -111,7 +111,7 @@ public extension Graph {
         }
         
         switch type {
-        case .Bar:
+        case .bar:
             
             self.init(barGraph:BarGraph<T, U>(
                 units: array.map{ GraphUnit<T, U>(key: nil, value: $0) },
@@ -119,7 +119,7 @@ public extension Graph {
                 textDisplayHandler: textDisplayHandler
             ))
             
-        case .Line:
+        case .line:
             
             self.init(lineGraph: LineGraph<T, U>(
                 units: array.map{ GraphUnit<T, U>(key: nil, value: $0) },
@@ -127,7 +127,7 @@ public extension Graph {
                 textDisplayHandler: textDisplayHandler
             ))
             
-        case .Pie:
+        case .pie:
             
             self.init(pieGraph: PieGraph<T, U>(
                 units: array.map{ GraphUnit<T, U>(key: nil, value: $0) },
@@ -153,7 +153,7 @@ public extension Graph {
     
     public convenience init(type: GraphType, dictionary: [T: U], range rangeOrNil: GraphRange<U>? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) {
         
-        let sorted = dictionary.sort{ $0.1 < $1.1 }
+        let sorted = dictionary.sorted{ $0.1 < $1.1 }
         
         let r = {() -> GraphRange<U> in
             if let r = rangeOrNil { return r }
@@ -165,7 +165,7 @@ public extension Graph {
         }
         
         switch type {
-        case .Bar:
+        case .bar:
             
             self.init(barGraph:BarGraph<T, U>(
                 units: sorted.map{ GraphUnit<T, U>(key: $0.0, value: $0.1) },
@@ -173,7 +173,7 @@ public extension Graph {
                 textDisplayHandler: textDisplayHandler
             ))
             
-        case .Line:
+        case .line:
             
             self.init(lineGraph: LineGraph<T, U>(
                 units: sorted.map{ GraphUnit<T, U>(key: $0.0, value: $0.1) },
@@ -181,7 +181,7 @@ public extension Graph {
                 textDisplayHandler: textDisplayHandler
             ))
             
-        case .Pie:
+        case .pie:
             
             self.init(pieGraph: PieGraph<T, U>(
                 units: sorted.map{ GraphUnit<T, U>(key: $0.0, value: $0.1) },
@@ -193,27 +193,27 @@ public extension Graph {
 
 public extension Graph {
     
-    public func view(frame: CGRect) -> GraphView<T, U> {
+    public func view(_ frame: CGRect) -> GraphView<T, U> {
         return GraphView(frame: frame, graph: self)
     }
 }
 
 enum GraphKind<T: Hashable, U: NumericType> {
     case
-    Bar(BarGraph<T, U>),
-    Line(LineGraph<T, U>),
-    Pie(PieGraph<T, U>)
+    bar(BarGraph<T, U>),
+    line(LineGraph<T, U>),
+    pie(PieGraph<T, U>)
     
-    internal static func barGraph(units: [GraphUnit<T, U>], range: GraphRange<U>) -> GraphKind<T, U> {
-        return GraphKind<T, U>.Bar(BarGraph(units: units, range: range))
+    internal static func barGraph(_ units: [GraphUnit<T, U>], range: GraphRange<U>) -> GraphKind<T, U> {
+        return GraphKind<T, U>.bar(BarGraph(units: units, range: range))
     }
     
-    internal static func lineGraph(units: [GraphUnit<T, U>], range: GraphRange<U>) -> GraphKind<T, U> {
-        return GraphKind<T, U>.Line(LineGraph(units: units, range: range))
+    internal static func lineGraph(_ units: [GraphUnit<T, U>], range: GraphRange<U>) -> GraphKind<T, U> {
+        return GraphKind<T, U>.line(LineGraph(units: units, range: range))
     }
     
-    internal static func pieGraph(units: [GraphUnit<T, U>]) -> GraphKind<T, U> {
-        return GraphKind<T, U>.Pie(PieGraph(units: units))
+    internal static func pieGraph(_ units: [GraphUnit<T, U>]) -> GraphKind<T, U> {
+        return GraphKind<T, U>.pie(PieGraph(units: units))
     }
 }
 
@@ -250,7 +250,7 @@ internal struct BarGraph<T: Hashable, U: NumericType>: GraphBase {
         self.textDisplayHandler = textDisplayHandler
     }
 
-    func view(frame: CGRect) -> GraphView? {
+    func view(_ frame: CGRect) -> GraphView? {
         return BarGraphView<T, U>(
             frame: frame,
             graph: self
@@ -261,7 +261,7 @@ internal struct BarGraph<T: Hashable, U: NumericType>: GraphBase {
         if let f = textDisplayHandler {
             return f
         }
-        return { (unit, total) -> String? in String(unit.value) }
+        return { (unit, total) -> String? in String(describing: unit.value) }
     }
 }
 
@@ -279,7 +279,7 @@ internal struct MultiBarGraph<T: Hashable, U: NumericType>: GraphBase {
         if let f = textDisplayHandler {
             return f
         }
-        return { (unit, total) -> String? in String(unit.value) }
+        return { (unit, total) -> String? in String(describing: unit.value) }
     }
 }
 
@@ -304,7 +304,7 @@ internal struct LineGraph<T: Hashable, U: NumericType>: GraphBase {
         self.textDisplayHandler = textDisplayHandler
     }
     
-    func view(frame: CGRect) -> GraphView? {
+    func view(_ frame: CGRect) -> GraphView? {
         return LineGraphView(frame: frame, graph: self)
     }
     
@@ -312,7 +312,7 @@ internal struct LineGraph<T: Hashable, U: NumericType>: GraphBase {
         if let f = textDisplayHandler {
             return f
         }
-        return { (unit, total) -> String? in String(unit.value) }
+        return { (unit, total) -> String? in String(describing: unit.value) }
     }
 }
 
@@ -334,7 +334,7 @@ internal struct PieGraph<T: Hashable, U: NumericType>: GraphBase {
         self.textDisplayHandler = textDisplayHandler
     }
     
-    func view(frame: CGRect) -> GraphView? {
+    func view(_ frame: CGRect) -> GraphView? {
         return PieGraphView(frame: frame, graph: self)
     }
     
@@ -344,7 +344,7 @@ internal struct PieGraph<T: Hashable, U: NumericType>: GraphBase {
         }
         return { (unit, total) -> String? in
             let f = unit.value.floatValue() / total.floatValue()
-            return String(unit.value) + " : " + String(format: "%.0f%%", f * 100.0)
+            return String(describing: unit.value) + " : " + String(format: "%.0f%%", f * 100.0)
         }
     }
 }
@@ -384,7 +384,7 @@ public struct BarGraphApperance {
         barWidthScale: CGFloat?,
         valueTextAttributes: GraphTextAttributes?
     ) {
-        self.barColor = barColor ?? DefaultColorType.Bar.color()
+        self.barColor = barColor ?? DefaultColorType.bar.color()
         self.barWidthScale = barWidthScale ?? 0.8
         self.valueTextAttributes = valueTextAttributes
     }
@@ -400,9 +400,9 @@ public struct GraphTextAttributes {
         textColor: UIColor?,
         textAlign: NSTextAlignment?
     ) {
-        self.font = font ?? UIFont.systemFontOfSize(10.0)
-        self.textColor = textColor ?? UIColor.grayColor()
-        self.textAlign = textAlign ?? .Center
+        self.font = font ?? UIFont.systemFont(ofSize: 10.0)
+        self.textColor = textColor ?? UIColor.gray
+        self.textAlign = textAlign ?? .center
     }
 }
 
@@ -411,11 +411,11 @@ public struct GraphTextAttributes {
 
 
 public protocol NumericType: Equatable, Comparable {
-    func +(lhs: Self, rhs: Self) -> Self
-    func -(lhs: Self, rhs: Self) -> Self
-    func *(lhs: Self, rhs: Self) -> Self
-    func /(lhs: Self, rhs: Self) -> Self
-    func %(lhs: Self, rhs: Self) -> Self
+    static func +(lhs: Self, rhs: Self) -> Self
+    static func -(lhs: Self, rhs: Self) -> Self
+    static func *(lhs: Self, rhs: Self) -> Self
+    static func /(lhs: Self, rhs: Self) -> Self
+    static func %(lhs: Self, rhs: Self) -> Self
     init()
     init(_ v: Int)
 }
