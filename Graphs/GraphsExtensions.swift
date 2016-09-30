@@ -26,15 +26,15 @@ public protocol GraphData {
  SequenceType<S: GraphData> -> 'Graph' object
  */
 
-extension SequenceType where Generator.Element: GraphData {
+extension Sequence where Iterator.Element: GraphData {
     
-    typealias GraphDataKey = Generator.Element.GraphDataKey
-    typealias GraphDataValue = Generator.Element.GraphDataValue
+    typealias GraphDataKey = Iterator.Element.GraphDataKey
+    typealias GraphDataValue = Iterator.Element.GraphDataValue
     
     public func barGraph(
         range: GraphRange<GraphDataValue>? = nil,
         textDisplayHandler: Graph<GraphDataKey, GraphDataValue>.GraphTextDisplayHandler? = nil
-    ) -> Graph<Generator.Element.GraphDataKey, Generator.Element.GraphDataValue> {
+    ) -> Graph<Iterator.Element.GraphDataKey, Iterator.Element.GraphDataValue> {
         
         return Graph<GraphDataKey, GraphDataValue>(type: .Bar, data: self.map{ $0 }, range: range, textDisplayHandler: textDisplayHandler)
     }
@@ -42,14 +42,14 @@ extension SequenceType where Generator.Element: GraphData {
     public func lineGraph(
         range: GraphRange<GraphDataValue>? = nil,
         textDisplayHandler: Graph<GraphDataKey, GraphDataValue>.GraphTextDisplayHandler? = nil
-    ) -> Graph<Generator.Element.GraphDataKey, Generator.Element.GraphDataValue> {
+    ) -> Graph<Iterator.Element.GraphDataKey, Iterator.Element.GraphDataValue> {
         
         return Graph<GraphDataKey, GraphDataValue>(type: .Line, data: self.map{ $0 }, range: range, textDisplayHandler: textDisplayHandler)
     }
     
     public func pieGraph(
         textDisplayHandler: Graph<GraphDataKey, GraphDataValue>.GraphTextDisplayHandler? = nil
-    ) -> Graph<Generator.Element.GraphDataKey, Generator.Element.GraphDataValue> {
+    ) -> Graph<Iterator.Element.GraphDataKey, Iterator.Element.GraphDataValue> {
         
         return Graph<GraphDataKey, GraphDataValue>(type: .Pie, data: self.map{ $0 }, range: nil, textDisplayHandler: textDisplayHandler)
     }
@@ -60,33 +60,33 @@ extension SequenceType where Generator.Element: GraphData {
  SequenceType<S: NumericType> -> 'Graph' object
  */
 
-extension SequenceType where Generator.Element: NumericType {
+extension Sequence where Iterator.Element: NumericType {
     
     public func barGraph(
-        range: GraphRange<Generator.Element>? = nil,
-        textDisplayHandler: Graph<String, Generator.Element>.GraphTextDisplayHandler? = nil
-    ) -> Graph<String, Generator.Element> {
+        range: GraphRange<Iterator.Element>? = nil,
+        textDisplayHandler: Graph<String, Iterator.Element>.GraphTextDisplayHandler? = nil
+    ) -> Graph<String, Iterator.Element> {
         
-        return Graph<String, Generator.Element>(type: .Bar, array: self.map{ $0 }, range: range, textDisplayHandler: textDisplayHandler)
+        return Graph<String, Iterator.Element>(type: .Bar, array: self.map{ $0 }, range: range, textDisplayHandler: textDisplayHandler)
     }
     
     
     public func lineGraph(
-        range: GraphRange<Generator.Element>? = nil,
-        textDisplayHandler: Graph<String, Generator.Element>.GraphTextDisplayHandler? = nil
-    ) -> Graph<String, Generator.Element> {
+        range: GraphRange<Iterator.Element>? = nil,
+        textDisplayHandler: Graph<String, Iterator.Element>.GraphTextDisplayHandler? = nil
+    ) -> Graph<String, Iterator.Element> {
         
-        return Graph<String, Generator.Element>(type: .Line, array: self.map{ $0 }, range: range, textDisplayHandler: textDisplayHandler)
+        return Graph<String, Iterator.Element>(type: .Line, array: self.map{ $0 }, range: range, textDisplayHandler: textDisplayHandler)
     }
     
     
     public func pieGraph(
-        textDisplayHandler: Graph<String, Generator.Element>.GraphTextDisplayHandler? = nil
-    ) -> Graph<String, Generator.Element> {
+        textDisplayHandler: Graph<String, Iterator.Element>.GraphTextDisplayHandler? = nil
+    ) -> Graph<String, Iterator.Element> {
         
-        return Graph<String, Generator.Element>(type: .Pie, array: self.map{ $0 }, range: nil, textDisplayHandler: textDisplayHandler)
+        return Graph<String, Iterator.Element>(type: .Pie, array: self.map{ $0 }, range: nil, textDisplayHandler: textDisplayHandler)
     }
-    
+  
 }
 
 
@@ -94,7 +94,7 @@ extension SequenceType where Generator.Element: NumericType {
  Dictionary -> 'Graph' object
  */
 
-extension CollectionType where Self: DictionaryLiteralConvertible, Self.Key: Hashable, Self.Value: NumericType, Generator.Element == (Self.Key, Self.Value) {
+extension Collection where Self: ExpressibleByDictionaryLiteral, Self.Key: Hashable, Self.Value: NumericType, Iterator.Element == (Self.Key, Self.Value) {
     
     
     typealias aKey = Self.Key
@@ -178,7 +178,7 @@ enum DefaultColorType {
                     tail.append(arr[i])
                 }
             }
-            return [arr[randomIndex]] + randomArray(tail)
+            return [arr[randomIndex]] + randomArray(arr: tail)
         }
         
         return Array(0 ..< count).map({ $0 }).map({ UIColor(hue: CGFloat($0) / CGFloat(count), saturation: 0.9, brightness: 0.9, alpha: 1.0) })
@@ -201,7 +201,9 @@ public extension UIColor {
         let prefixHex = {(str) -> String in
             for prefix in ["0x", "0X", "#"] {
                 if str.hasPrefix(prefix) {
-                    return str.substringFromIndex(str.startIndex.advancedBy(prefix.characters.count))
+                  let index = str.index(str.startIndex, offsetBy: prefix.characters.count)
+                  return str.substring(from: index)
+
                 }
             }
             return str
@@ -213,9 +215,9 @@ public extension UIColor {
             return
         }
         
-        let scanner = NSScanner(string: prefixHex)
+        let scanner = Scanner(string: prefixHex)
         var hexInt: UInt64 = 0
-        if !scanner.scanHexLongLong(&hexInt) {
+        if !scanner.scanHexInt64(&hexInt) {
             self.init(white: 0.0, alpha: 1.0)
             return
         }
@@ -253,7 +255,7 @@ extension NSAttributedString {
     
     class func graphAttributedString(string: String, color: UIColor, font: UIFont) -> NSAttributedString {
         let paragraph = NSMutableParagraphStyle()
-        paragraph.alignment = .Center
+        paragraph.alignment = .center
         
         return NSAttributedString(string: string, attributes: [
             NSForegroundColorAttributeName:color,

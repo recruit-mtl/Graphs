@@ -16,21 +16,21 @@ public class GraphView<T: Hashable, U: NumericType>: UIView {
         }
     }
     
-    private var barGraphConfig: BarGraphViewConfig?
-    private var lineGraphConfig: LineGraphViewConfig?
-    private var pieGraphConfig: PieGraphViewConfig?
+    var barGraphConfig: BarGraphViewConfig?
+    var lineGraphConfig: LineGraphViewConfig?
+    var pieGraphConfig: PieGraphViewConfig?
     
     public init(frame: CGRect, graph: Graph<T, U>? = nil) {
         self.graph = graph
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         self.reloadData()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         self.reloadData()
     }
     
@@ -43,27 +43,27 @@ public class GraphView<T: Hashable, U: NumericType>: UIView {
         switch graph.kind {
         case .Bar(let g):
             
-            if let view = g.view(self.bounds) {
+            if let view = g.view(frame: self.bounds) {
                 if let c = barGraphConfig {
-                    view.setBarGraphViewConfig(c)
+                    view.setBarGraphViewConfig(config: c)
                 }
                 self.addSubview(view)
             }
             
         case .Line(let g):
             
-            if let view = g.view(self.bounds) {
+            if let view = g.view(frame: self.bounds) {
                 if let c = lineGraphConfig {
-                    view.setLineGraphViewConfig(c)
+                    view.setLineGraphViewConfig(config: c)
                 }
                 self.addSubview(view)
             }
             
         case .Pie(let g):
             
-            if let view = g.view(self.bounds) {
+            if let view = g.view(frame: self.bounds) {
                 if let c = pieGraphConfig {
-                    view.setPieGraphViewConfig(c)
+                    view.setPieGraphViewConfig(config: c)
                 }
                 self.addSubview(view)
             }
@@ -84,7 +84,7 @@ extension GraphView {
         self.barGraphConfig = configuration()
         self.subviews.forEach { (v) in
             if let barGraphView = v as? BarGraphView<T, U> {
-                barGraphView.setBarGraphViewConfig(barGraphConfig)
+                barGraphView.setBarGraphViewConfig(config: barGraphConfig)
             }
         }
         return self
@@ -94,7 +94,7 @@ extension GraphView {
         self.lineGraphConfig = configuration()
         self.subviews.forEach { (v) in
             if let lineGraphView = v as? LineGraphView<T, U> {
-                lineGraphView.setLineGraphViewConfig(lineGraphConfig)
+                lineGraphView.setLineGraphViewConfig(config: lineGraphConfig)
             }
         }
         return self
@@ -104,7 +104,7 @@ extension GraphView {
         self.pieGraphConfig = configuration()
         self.subviews.forEach { (v) in
             if let pieGraphView = v as? PieGraphView<T, U> {
-                pieGraphView.setPieGraphViewConfig(pieGraphConfig)
+                pieGraphView.setPieGraphViewConfig(config: pieGraphConfig)
             }
         }
         return self
