@@ -17,15 +17,15 @@ public enum GraphType {
 
 public class Graph<T: Hashable, U: NumericType> {
     
-    public typealias GraphTextDisplayHandler = (unit: GraphUnit<T, U>, totalValue: U) -> String?
+    public typealias GraphTextDisplayHandler = (_ unit: GraphUnit<T, U>, _ totalValue: U) -> String?
     
     let kind: GraphKind<T, U>
     
-    
+  
     init(barGraph: BarGraph<T, U>) {
         self.kind = GraphKind<T, U>.Bar(barGraph)
     }
-    
+  
     init(lineGraph: LineGraph<T, U>) {
         self.kind = GraphKind<T, U>.Line(lineGraph)
     }
@@ -37,7 +37,7 @@ public class Graph<T: Hashable, U: NumericType> {
 
 public extension Graph {
     
-    public convenience init<S: GraphData where S.GraphDataKey == T, S.GraphDataValue == U>(type: GraphType, data: [S], min minOrNil: U? = nil, max maxOrNil: U? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) {
+    public convenience init<S: GraphData>(type: GraphType, data: [S], min minOrNil: U? = nil, max maxOrNil: U? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) where S.GraphDataKey == T, S.GraphDataValue == U {
         
         let range = {() -> GraphRange<U>? in
             if let min = minOrNil, let max = maxOrNil {
@@ -49,11 +49,11 @@ public extension Graph {
         self.init(type: type, data: data, range: range(), textDisplayHandler: textDisplayHandler)
     }
     
-    public convenience init<S: GraphData where S.GraphDataKey == T, S.GraphDataValue == U>(type: GraphType, data: [S], range rangeOrNil: GraphRange<U>? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) {
+    public convenience init<S: GraphData>(type: GraphType, data: [S], range rangeOrNil: GraphRange<U>? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) where S.GraphDataKey == T, S.GraphDataValue == U {
         
         let r = {() -> GraphRange<U> in
             if let r = rangeOrNil { return r }
-            let sorted = data.sort{ $0.value < $1.value }
+            let sorted = data.sorted{ $0.value < $1.value }
             return GraphRange<U>(
                 min: sorted.first?.value ?? U(0),
                 max: sorted.last?.value ?? U(0)
@@ -103,7 +103,7 @@ public extension Graph {
         
         let r = {() -> GraphRange<U> in
             if let r = rangeOrNil { return r }
-            let sorted = array.sort{ $0 < $1 }
+            let sorted = array.sorted{ $0 < $1 }
             return GraphRange<U>(
                 min: sorted.first ?? U(0),
                 max: sorted.last ?? U(0)
@@ -153,7 +153,7 @@ public extension Graph {
     
     public convenience init(type: GraphType, dictionary: [T: U], range rangeOrNil: GraphRange<U>? = nil, textDisplayHandler: GraphTextDisplayHandler? = nil) {
         
-        let sorted = dictionary.sort{ $0.1 < $1.1 }
+        let sorted = dictionary.sorted{ $0.1 < $1.1 }
         
         let r = {() -> GraphRange<U> in
             if let r = rangeOrNil { return r }
@@ -261,7 +261,7 @@ internal struct BarGraph<T: Hashable, U: NumericType>: GraphBase {
         if let f = textDisplayHandler {
             return f
         }
-        return { (unit, total) -> String? in String(unit.value) }
+        return { (unit, total) -> String? in String(describing: unit.value) }
     }
 }
 
@@ -279,7 +279,7 @@ internal struct MultiBarGraph<T: Hashable, U: NumericType>: GraphBase {
         if let f = textDisplayHandler {
             return f
         }
-        return { (unit, total) -> String? in String(unit.value) }
+        return { (unit, total) -> String? in String(describing: unit.value) }
     }
 }
 
@@ -312,7 +312,7 @@ internal struct LineGraph<T: Hashable, U: NumericType>: GraphBase {
         if let f = textDisplayHandler {
             return f
         }
-        return { (unit, total) -> String? in String(unit.value) }
+        return { (unit, total) -> String? in String(describing: unit.value) }
     }
 }
 
@@ -344,7 +344,7 @@ internal struct PieGraph<T: Hashable, U: NumericType>: GraphBase {
         }
         return { (unit, total) -> String? in
             let f = unit.value.floatValue() / total.floatValue()
-            return String(unit.value) + " : " + String(format: "%.0f%%", f * 100.0)
+            return String(describing: unit.value) + " : " + String(format: "%.0f%%", f * 100.0)
         }
     }
 }
@@ -400,9 +400,9 @@ public struct GraphTextAttributes {
         textColor: UIColor?,
         textAlign: NSTextAlignment?
     ) {
-        self.font = font ?? UIFont.systemFontOfSize(10.0)
-        self.textColor = textColor ?? UIColor.grayColor()
-        self.textAlign = textAlign ?? .Center
+        self.font = font ?? UIFont.systemFont(ofSize: 10.0)
+        self.textColor = textColor ?? UIColor.gray
+        self.textAlign = textAlign ?? .center
     }
 }
 
@@ -411,11 +411,11 @@ public struct GraphTextAttributes {
 
 
 public protocol NumericType: Equatable, Comparable {
-    func +(lhs: Self, rhs: Self) -> Self
-    func -(lhs: Self, rhs: Self) -> Self
-    func *(lhs: Self, rhs: Self) -> Self
-    func /(lhs: Self, rhs: Self) -> Self
-    func %(lhs: Self, rhs: Self) -> Self
+    static func +(lhs: Self, rhs: Self) -> Self
+    static func -(lhs: Self, rhs: Self) -> Self
+    static func *(lhs: Self, rhs: Self) -> Self
+    static func /(lhs: Self, rhs: Self) -> Self
+    static func %(lhs: Self, rhs: Self) -> Self
     init()
     init(_ v: Int)
 }
