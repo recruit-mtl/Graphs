@@ -411,11 +411,11 @@ public struct GraphTextAttributes {
 
 
 public protocol NumericType: Equatable, Comparable {
-    func +(lhs: Self, rhs: Self) -> Self
-    func -(lhs: Self, rhs: Self) -> Self
-    func *(lhs: Self, rhs: Self) -> Self
-    func /(lhs: Self, rhs: Self) -> Self
-    func %(lhs: Self, rhs: Self) -> Self
+    static func +(lhs: Self, rhs: Self) -> Self
+    static  func -(lhs: Self, rhs: Self) -> Self
+    static  func *(lhs: Self, rhs: Self) -> Self
+    static  func /(lhs: Self, rhs: Self) -> Self
+    static  func %(lhs: Self, rhs: Self) -> Self
     init()
     init(_ v: Int)
 }
