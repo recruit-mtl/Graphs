@@ -76,7 +76,7 @@ internal class LineGraphView<T: Hashable, U: NumericType>: UIView {
         let ps = self.points(lineGraph, rect: rect)
         
         let context = UIGraphicsGetCurrentContext()
-        context?.setStrokeColor(config.lineColor.cgColor ?? UIColor.black.cgColor)
+        context?.setStrokeColor(config.lineColor.cgColor )
         context?.setLineWidth(self.config.lineWidth)
         
         ps.forEach({point in
@@ -91,7 +91,7 @@ internal class LineGraphView<T: Hashable, U: NumericType>: UIView {
         })
         
         context?.setLineWidth(0.0)
-        context?.setFillColor(config.lineColor.cgColor ?? UIColor.black.cgColor)
+        context?.setFillColor(config.lineColor.cgColor )
         
         if self.config.dotEnable {
             ps.forEach({point in
