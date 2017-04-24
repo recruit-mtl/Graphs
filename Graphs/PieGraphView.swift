@@ -58,21 +58,22 @@ internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
         self.config = config ?? PieGraphViewConfig()
         self.setNeedsDisplay()
     }
-    
+
+    // This generic function has to be put outside of "draw(_ rect: CGRect)", to avoid Swift compiler segmentation fault 11
+    func convert<S: NumericType>(_ s: S, arr: [S], f: (S) -> S) -> [S] {
+        switch arr.match {
+        case let .some(h, t):   return [(f(h) + s) as S] + convert(h + s, arr:t, f: f)
+        case .none:             return []
+        }
+    }
+
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
         guard let graph = self.graph else { return }
-        
-        func convert<S: NumericType>(_ s: S, arr: [S], f: (S) -> S) -> [S] {
-            switch arr.match {
-            case let .some(h, t):   return [(f(h) + s) as S] + convert(h + s, arr:t, f: f)
-            case .none:             return []
-            }
-        }
-        
+
         let colors = self.config.pieColors ?? DefaultColorType.pieColors(graph.units.count)
-        
+
         let values = graph.units.map({ max($0.value, U(0)) })
         let total = values.reduce(U(0), { $0 + $1 })
         let percentages = values.map({ Double($0.floatValue() / total.floatValue()) })
