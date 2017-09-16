@@ -28,8 +28,8 @@ public protocol GraphData {
 
 extension Sequence where Iterator.Element: GraphData {
     
-    typealias GraphDataKey = Iterator.Element.GraphDataKey
-    typealias GraphDataValue = Iterator.Element.GraphDataValue
+    public typealias GraphDataKey = Iterator.Element.GraphDataKey
+    public typealias GraphDataValue = Iterator.Element.GraphDataValue
     
     public func barGraph(
         _ range: GraphRange<GraphDataValue>? = nil,
@@ -97,8 +97,8 @@ extension Sequence where Iterator.Element: NumericType {
 extension Collection where Self: ExpressibleByDictionaryLiteral, Self.Key: Hashable, Self.Value: NumericType, Iterator.Element == (Self.Key, Self.Value) {
     
     
-    typealias aKey = Self.Key
-    typealias aValue = Self.Value
+    public typealias aKey = Self.Key
+    public typealias aValue = Self.Value
     
     public func barGraph(
         _ range: GraphRange<aValue>? = nil,
@@ -201,7 +201,7 @@ public extension UIColor {
         let prefixHex = {(str) -> String in
             for prefix in ["0x", "0X", "#"] {
                 if str.hasPrefix(prefix) {
-                    return str.substring(from: str.characters.index(str.startIndex, offsetBy: prefix.characters.count))
+                    return String(str[str.characters.index(str.startIndex, offsetBy: prefix.characters.count)...])
                 }
             }
             return str
@@ -256,9 +256,9 @@ extension NSAttributedString {
         paragraph.alignment = .center
         
         return NSAttributedString(string: string, attributes: [
-            NSForegroundColorAttributeName:color,
-            NSFontAttributeName: font,
-            NSParagraphStyleAttributeName: paragraph
+            .foregroundColor: color,
+            .font: font,
+            .paragraphStyle: paragraph
         ])
     }
 }

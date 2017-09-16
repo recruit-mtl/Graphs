@@ -86,17 +86,17 @@ internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
         let radius = min(rect.width, rect.height) / 2.0
         
         let centers = convert(0.0, arr: percentages) { $0 / 2.0 }.map { (c) -> CGPoint in
-            let angle = M_PI * 2.0 * c - M_PI / 2.0
+            let angle = .pi * 2.0 * c - .pi / 2.0
             return CGPoint(
                 x: Double(x) + cos(angle) * Double(radius * 3.0 / 4.0),
                 y: Double(y) + sin(angle) * Double(radius * 3.0 / 4.0)
             )
         }
         
-        var startAngle = -M_PI / 2.0
+        var startAngle = -.pi / 2.0
 
         percentages.enumerated().forEach { (index, f) in
-            let endAngle = startAngle + M_PI * 2.0 * f
+            let endAngle = startAngle + .pi * 2.0 * f
             context?.move(to: CGPoint(x: x, y: y));
             context?.addArc(center: CGPoint(x: x, y: y), radius: radius, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: false)
 
@@ -122,9 +122,9 @@ internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
             paragraph.alignment = .center
             
             let attrStr = NSAttributedString(string: str, attributes: [
-                NSForegroundColorAttributeName:self.config.textColor,
-                NSFontAttributeName: UIFont.systemFont(ofSize: 10.0),
-                NSParagraphStyleAttributeName: paragraph
+                .foregroundColor: self.config.textColor,
+                .font: UIFont.systemFont(ofSize: 10.0),
+                .paragraphStyle: paragraph
             ])
             
             let size = attrStr.size()
