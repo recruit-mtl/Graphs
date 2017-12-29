@@ -201,14 +201,14 @@ public extension UIColor {
         let prefixHex = {(str) -> String in
             for prefix in ["0x", "0X", "#"] {
                 if str.hasPrefix(prefix) {
-                    return String(str[str.characters.index(str.startIndex, offsetBy: prefix.characters.count)...])
+                    return String(str[str.index(str.startIndex, offsetBy: prefix.count)...])
                 }
             }
             return str
         }(hex)
         
         
-        if prefixHex.characters.count != 6 && prefixHex.characters.count != 8 {
+        if prefixHex.count != 6 && prefixHex.count != 8 {
             self.init(white: 0.0, alpha: 1.0)
             return
         }
@@ -220,7 +220,7 @@ public extension UIColor {
             return
         }
         
-        switch prefixHex.characters.count {
+        switch prefixHex.count {
         case 6:
             self.init(RGBInt: hexInt)
         case 8:
