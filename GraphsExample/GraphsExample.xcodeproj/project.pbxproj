@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		974E409B1F3C36BC5D841350 /* Pods_GraphsExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F49A1ECEBF7A92816B652F8 /* Pods_GraphsExample.framework */; };
+		997732406C40FD3614D32C96 /* Pods_GraphsExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151EB9703E3E799C3FE91973 /* Pods_GraphsExample.framework */; };
 		E92069AC1CFC3D200025DBC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92069AB1CFC3D200025DBC8 /* AppDelegate.swift */; };
 		E92069B11CFC3D200025DBC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92069AF1CFC3D200025DBC8 /* Main.storyboard */; };
 		E92069B31CFC3D200025DBC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E92069B21CFC3D200025DBC8 /* Assets.xcassets */; };
@@ -28,9 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4227E7448AC62671208299D7 /* Pods-GraphsExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GraphsExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GraphsExample/Pods-GraphsExample.debug.xcconfig"; sourceTree = "<group>"; };
-		648833EF53F9A4F7C44598BB /* Pods-GraphsExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GraphsExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-GraphsExample/Pods-GraphsExample.release.xcconfig"; sourceTree = "<group>"; };
-		8F49A1ECEBF7A92816B652F8 /* Pods_GraphsExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GraphsExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		151EB9703E3E799C3FE91973 /* Pods_GraphsExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GraphsExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		465F0ABDDEF4C02C753CE97A /* Pods-GraphsExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GraphsExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GraphsExample/Pods-GraphsExample.debug.xcconfig"; sourceTree = "<group>"; };
 		E92069A81CFC3D200025DBC8 /* GraphsExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GraphsExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E92069AB1CFC3D200025DBC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E92069B01CFC3D200025DBC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -42,6 +41,7 @@
 		E92069C21CFC3D200025DBC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E961AAE51D1245C400B4D5A7 /* GraphCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphCollectionViewCell.swift; sourceTree = "<group>"; };
 		E97D788E1D112F8F00F4F8CF /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		EE1A0FF102CF6F40687D38D2 /* Pods-GraphsExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GraphsExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-GraphsExample/Pods-GraphsExample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				974E409B1F3C36BC5D841350 /* Pods_GraphsExample.framework in Frameworks */,
+				997732406C40FD3614D32C96 /* Pods_GraphsExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,21 +63,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		29D120C267599379DAEF37A8 /* Frameworks */ = {
+		22CB99AD1E7F847B621ADBE5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8F49A1ECEBF7A92816B652F8 /* Pods_GraphsExample.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		8AFFCF1B50DBACE8319B88C4 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4227E7448AC62671208299D7 /* Pods-GraphsExample.debug.xcconfig */,
-				648833EF53F9A4F7C44598BB /* Pods-GraphsExample.release.xcconfig */,
+				465F0ABDDEF4C02C753CE97A /* Pods-GraphsExample.debug.xcconfig */,
+				EE1A0FF102CF6F40687D38D2 /* Pods-GraphsExample.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		A90BA0B16C5C466CEE0A0869 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				151EB9703E3E799C3FE91973 /* Pods_GraphsExample.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E920699F1CFC3D200025DBC8 = {
@@ -86,8 +86,8 @@
 				E92069AA1CFC3D200025DBC8 /* GraphsExample */,
 				E92069BF1CFC3D200025DBC8 /* GraphsExampleTests */,
 				E92069A91CFC3D200025DBC8 /* Products */,
-				8AFFCF1B50DBACE8319B88C4 /* Pods */,
-				29D120C267599379DAEF37A8 /* Frameworks */,
+				22CB99AD1E7F847B621ADBE5 /* Pods */,
+				A90BA0B16C5C466CEE0A0869 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,13 +130,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E92069C51CFC3D210025DBC8 /* Build configuration list for PBXNativeTarget "GraphsExample" */;
 			buildPhases = (
-				238EE3CEB76B45FE11A50757 /* [CP] Check Pods Manifest.lock */,
+				65C4C7FE5F71C5549E3AAC37 /* [CP] Check Pods Manifest.lock */,
 				E92069A41CFC3D200025DBC8 /* Sources */,
 				E92069A51CFC3D200025DBC8 /* Frameworks */,
 				E92069A61CFC3D200025DBC8 /* Resources */,
-				757FB9C9151E3B788984CFB0 /* [CP] Embed Pods Frameworks */,
-				17985833460BB9F83DF0E125 /* [CP] Copy Pods Resources */,
-				406E61D919A0A9E11D6F2F3E /* Embed Pods Frameworks */,
+				94B11597A60E31C8C2A3F286 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -172,14 +170,17 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Recruit Holdings Co., Ltd.";
 				TargetAttributes = {
 					E92069A71CFC3D200025DBC8 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					E92069BB1CFC3D200025DBC8 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = RT4NRJPHW3;
+						LastSwiftMigration = 0800;
 						TestTargetID = E92069A71CFC3D200025DBC8;
 					};
 				};
@@ -224,60 +225,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		17985833460BB9F83DF0E125 /* [CP] Copy Pods Resources */ = {
+		65C4C7FE5F71C5549E3AAC37 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GraphsExample/Pods-GraphsExample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		238EE3CEB76B45FE11A50757 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GraphsExample-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		406E61D919A0A9E11D6F2F3E /* Embed Pods Frameworks */ = {
+		94B11597A60E31C8C2A3F286 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GraphsExample/Pods-GraphsExample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		757FB9C9151E3B788984CFB0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-GraphsExample/Pods-GraphsExample-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Graphs/Graphs.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Graphs.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -344,13 +321,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -390,13 +377,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -415,6 +412,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -422,27 +420,33 @@
 		};
 		E92069C61CFC3D210025DBC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4227E7448AC62671208299D7 /* Pods-GraphsExample.debug.xcconfig */;
+			baseConfigurationReference = 465F0ABDDEF4C02C753CE97A /* Pods-GraphsExample.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = GraphsExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jp.co.recruit.mtl.GraphsExample;
+				PRODUCT_BUNDLE_IDENTIFIER = come.example.GraphsExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		E92069C71CFC3D210025DBC8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 648833EF53F9A4F7C44598BB /* Pods-GraphsExample.release.xcconfig */;
+			baseConfigurationReference = EE1A0FF102CF6F40687D38D2 /* Pods-GraphsExample.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = GraphsExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jp.co.recruit.mtl.GraphsExample;
+				PRODUCT_BUNDLE_IDENTIFIER = come.example.GraphsExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -450,10 +454,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = RT4NRJPHW3;
 				INFOPLIST_FILE = GraphsExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.co.recruit.mtl.GraphsExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GraphsExample.app/GraphsExample";
 			};
 			name = Debug;
@@ -462,10 +468,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = RT4NRJPHW3;
 				INFOPLIST_FILE = GraphsExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.co.recruit.mtl.GraphsExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GraphsExample.app/GraphsExample";
 			};
 			name = Release;
