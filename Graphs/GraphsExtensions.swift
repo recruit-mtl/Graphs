@@ -255,11 +255,9 @@ extension NSAttributedString {
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
         
-        return NSAttributedString(string: string, attributes: [
-            .foregroundColor: color,
-            .font: font,
-            .paragraphStyle: paragraph
-        ])
+        return NSMutableAttributedString(
+            string: string,
+            attributes: [NSFontAttributeName: font, NSForegroundColorAttributeName: color, NSParagraphStyleAttributeName: paragraph])
     }
 }
 

@@ -121,11 +121,9 @@ internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
             let paragraph = NSMutableParagraphStyle()
             paragraph.alignment = .center
             
-            let attrStr = NSAttributedString(string: str, attributes: [
-                .foregroundColor: self.config.textColor,
-                .font: UIFont.systemFont(ofSize: 10.0),
-                .paragraphStyle: paragraph
-            ])
+            let attrStr = NSMutableAttributedString(
+                string: str,
+                attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 10.0), NSForegroundColorAttributeName:  self.config.textColor, NSParagraphStyleAttributeName: paragraph])
             
             let size = attrStr.size()
             
